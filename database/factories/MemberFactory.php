@@ -17,7 +17,10 @@ class MemberFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'nama' => $this->faker->name,
+            'tlp' => $this->faker->phoneNumber,
+            'jenis_kelamin' => $this->faker->randomElement(['L', 'P']),
+            'alamat' => $this->faker->address,
         ];
     }
 }

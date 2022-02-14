@@ -8,8 +8,8 @@
       </div>
    </div>
    <div class="section-body">
-      <button class="btn btn-icon icon-left btn-primary" data-toggle="modal" data-target="#createModal"><i class="fas fa-plus"></i>&nbsp;Add New Member</button>
       <div id="alertHere"></div>
+      <button class="btn btn-icon icon-left btn-primary" data-toggle="modal" data-target="#createModal"><i class="fas fa-plus"></i>&nbsp;Add New Member</button>
       <div class="row">
          <div class="col-12">
             <div id="wrapperTable"></div>
@@ -104,6 +104,10 @@
                $('#hapusModal #namaMember').text(nama)
             })
 
+            $('.btnResetForm').on('click', function () {
+               $('#createModal form')[0].reset()
+            })
+
             $('#btnCreateMember').click(function(e) {
                e.preventDefault()
                let createformdata = new FormData(document.getElementById('formCreateMember'))
@@ -117,31 +121,28 @@
                      if(data.success) {
                            gridMember.forceRender()
                            $('#createModal').modal('hide')
+                           $('#createModal form')[0].reset()
                            $('#alertHere').html(
-                              `<div class="alert alert-success alert-dismissible fade show text-white mb-4 alertAnimation" role="alert">
-                                 <span class="alert-icon align-middle">
-                                       <span class="material-icons text-md">
-                                       thumb_up_off_alt
-                                       </span>
-                                 </span>
-                                 <span class="alert-text"><strong>Success!</strong>&nbsp;&nbsp;Create Data Member Successfull</span>
-                                 <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close">
-                                          <span aria-hidden="true">&times;</span>
-                                 </button>
+                              `<div class="alert alert-success alert-dismissible alert-has-icon align-items-center show fade">
+                                 <div class="alert-icon"><i class="fas fa-check"></i></div>
+                                 <div class="alert-body">
+                                    <button class="close" data-dismiss="alert">
+                                       <span>&times;</span>
+                                    </button>
+                                    Create Data Member Succesfully.
+                                 </div>
                               </div>`
                            )
                      } else {
-                           `<div class="alert alert-danger alert-dismissible fade show text-white mb-4 alertAnimation" role="alert">
-                              <span class="alert-icon align-middle">
-                                 <span class="material-icons text-md">
-                                 info
-                                 </span>
-                              </span>
-                              <span class="alert-text"><strong>Success!</strong>&nbsp;&nbsp;Create Data Member Successfull</span>
-                              <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close">
-                                       <span aria-hidden="true">&times;</span>
+                        `<div class="alert alert-success alert-dismissible alert-has-icon align-items-center show fade">
+                           <div class="alert-icon"><i class="fas fa-check"></i></div>
+                           <div class="alert-body">
+                              <button class="close" data-dismiss="alert">
+                                 <span>&times;</span>
                               </button>
-                           </div>`
+                              Create Data Member Failed.
+                           </div>
+                        </div>`
                      }
                   }
                })
@@ -162,30 +163,26 @@
                            gridMember.forceRender()
                            $('#editModal').modal('hide')
                            $('#alertHere').html(
-                              `<div class="alert alert-success alert-dismissible fade show text-white mb-4 alertAnimation" role="alert">
-                                 <span class="alert-icon align-middle">
-                                       <span class="material-icons text-md">
-                                       thumb_up_off_alt
-                                       </span>
-                                 </span>
-                                 <span class="alert-text"><strong>Success!</strong>&nbsp;&nbsp;Update Data Member Successfull</span>
-                                 <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close">
-                                          <span aria-hidden="true">&times;</span>
-                                 </button>
+                              `<div class="alert alert-success alert-dismissible alert-has-icon align-items-center show fade">
+                                 <div class="alert-icon"><i class="fas fa-check"></i></div>
+                                 <div class="alert-body">
+                                    <button class="close" data-dismiss="alert">
+                                       <span>&times;</span>
+                                    </button>
+                                    Update Data Member Succesfully.
+                                 </div>
                               </div>`
                            )
                      } else {
-                           `<div class="alert alert-danger alert-dismissible fade show text-white mb-4 alertAnimation" role="alert">
-                              <span class="alert-icon align-middle">
-                                 <span class="material-icons text-md">
-                                 info
-                                 </span>
-                              </span>
-                              <span class="alert-text"><strong>Success!</strong>&nbsp;&nbsp;Update Data Member Unsuccessfull</span>
-                              <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close">
-                                       <span aria-hidden="true">&times;</span>
+                        `<div class="alert alert-success alert-dismissible alert-has-icon align-items-center show fade">
+                           <div class="alert-icon"><i class="fas fa-check"></i></div>
+                           <div class="alert-body">
+                              <button class="close" data-dismiss="alert">
+                                 <span>&times;</span>
                               </button>
-                           </div>`
+                              Update Data Member Failed.
+                           </div>
+                        </div>`
                      }
                   }
                })
@@ -205,30 +202,26 @@
                            gridMember.forceRender()
                            $('#hapusModal').modal('hide')
                            $('#alertHere').html(
-                              `<div class="alert alert-success alert-dismissible fade show text-white mb-4 alertAnimation" role="alert">
-                                 <span class="alert-icon align-middle">
-                                       <span class="material-icons text-md">
-                                       thumb_up_off_alt
-                                       </span>
-                                 </span>
-                                 <span class="alert-text"><strong>Success!</strong>&nbsp;&nbsp;Delete Data Member Successfull</span>
-                                 <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                 </button>
+                              `<div class="alert alert-success alert-dismissible alert-has-icon align-items-center show fade">
+                                 <div class="alert-icon"><i class="fas fa-check"></i></div>
+                                 <div class="alert-body">
+                                    <button class="close" data-dismiss="alert">
+                                       <span>&times;</span>
+                                    </button>
+                                    Delete Data Member Succesfully.
+                                 </div>
                               </div>`
                            )
                      } else {
-                           `<div class="alert alert-danger alert-dismissible fade show text-white mb-4 alertAnimation" role="alert">
-                              <span class="alert-icon align-middle">
-                                 <span class="material-icons text-md">
-                                 info
-                                 </span>
-                              </span>
-                              <span class="alert-text"><strong>Success!</strong>&nbsp;&nbsp;Delete Data Member Unsuccessfull</span>
-                              <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close">
-                                 <span aria-hidden="true">&times;</span>
+                        `<div class="alert alert-success alert-dismissible alert-has-icon align-items-center show fade">
+                           <div class="alert-icon"><i class="fas fa-check"></i></div>
+                           <div class="alert-body">
+                              <button class="close" data-dismiss="alert">
+                                 <span>&times;</span>
                               </button>
-                           </div>`
+                              Delete Data Member Failed.
+                           </div>
+                        </div>`
                      }
                   }
                })

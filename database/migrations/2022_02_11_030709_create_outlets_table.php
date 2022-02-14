@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('nama', 100);
             $table->text('alamat');
-            $table->string('tlp', 15);
+            $table->string('tlp', 30);
             $table->timestamps();
         });
     }

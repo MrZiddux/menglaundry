@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\OutletController;
+use App\Http\Controllers\PaketController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,3 +28,9 @@ Route::get('outlets/getData', [OutletController::class, 'getData']);
 Route::post('outlets/store', [OutletController::class, 'store'])->name('outlets.store');
 Route::post('outlets/update', [OutletController::class, 'update'])->name('outlets.update');
 Route::post('outlets/destroy', [OutletController::class, 'destroy'])->name('outlets.destroy');
+
+Route::get('packages', [PaketController::class, 'index']);
+Route::get('packages/getData', [PaketController::class, 'getData']);
+Route::post('packages/store', [PaketController::class, 'store'])->name('package.store');
+Route::post('packages/update', [PaketController::class, 'update'])->name('package.update');
+Route::post('packages/destroy', [PaketController::class, 'destroy'])->name('package.destroy');
