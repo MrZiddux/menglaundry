@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\OutletController;
 use App\Http\Controllers\PaketController;
@@ -31,6 +32,12 @@ Route::post('outlets/destroy', [OutletController::class, 'destroy'])->name('outl
 
 Route::get('packages', [PaketController::class, 'index']);
 Route::get('packages/getData', [PaketController::class, 'getData']);
-Route::post('packages/store', [PaketController::class, 'store'])->name('package.store');
-Route::post('packages/update', [PaketController::class, 'update'])->name('package.update');
-Route::post('packages/destroy', [PaketController::class, 'destroy'])->name('package.destroy');
+Route::post('packages/store', [PaketController::class, 'store'])->name('packages.store');
+Route::post('packages/update', [PaketController::class, 'update'])->name('packages.update');
+Route::post('packages/destroy', [PaketController::class, 'destroy'])->name('packages.destroy');
+
+// Route::view('register', 'page.auth.register');
+// Route::post('register/store', [AuthController::class, 'store'])->name('register.store');
+// Route::post('register/checkUsername', [AuthController::class, 'checkUsername'])->name('register.checkUsername');
+Route::view('login', 'pages.auth.login')->name('login');
+Route::post('login/check', [AuthController::class, 'check'])->name('login.check');
