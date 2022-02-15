@@ -27,15 +27,6 @@ return new class extends Migration
             $table->timestamps();
             $table->foreign('id_outlet')->references('id')->on('tb_outlet');
         });
-
-        User::create([
-            'nama' => 'Ziyadatul Khair',
-            'username' => 'ziddkh',
-            'password' => Hash::make('123123'),
-            'id_outlet' => null,
-            'role' => 'admin',
-            'rules_check' => true,
-        ]);
     }
 
     /**

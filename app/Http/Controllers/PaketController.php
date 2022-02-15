@@ -14,14 +14,14 @@ class PaketController extends Controller
 
    public function getData()
    {
-      $packages = Paket::get();
+      $packages = Paket::where('id_outlet', auth()->user()->id_outlet)->get();
       return response()->json($packages);
    }
 
    public function store(Request $r)
    {
       Paket::create([
-         'id_outlet' => 1,
+         'id_outlet' => auth()->user()->id_outlet,
          'jenis' => $r->jenis,
          'nama_paket' => $r->nama_paket,
          'harga' => $r->harga,

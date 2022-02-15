@@ -17,3 +17,23 @@
 <!-- Template JS File -->
 <script src="/assets/js/scripts.js"></script>
 <script src="/assets/js/custom.js"></script>
+
+<script>
+   // make function when #logoutButton is clicked logout
+   $('#logoutButton').click(function(e){
+      const csrf = $('#logoutButton').data('csrf')
+      e.preventDefault();
+      $.ajaxSetup({
+         headers: {
+            'X-CSRF-TOKEN': csrf
+         }
+      })
+      $.ajax({
+         url: '/logout',
+         type: 'POST',
+         success: function(response){
+            window.location.href = '/login';
+         }
+      });
+   });
+</script>
