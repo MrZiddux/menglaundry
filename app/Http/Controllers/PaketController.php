@@ -15,6 +15,7 @@ class PaketController extends Controller
    public function getData()
    {
       $packages = Paket::where('id_outlet', auth()->user()->id_outlet)->get();
+      // $packages = Paket::get();
       return response()->json($packages);
    }
 
