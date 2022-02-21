@@ -20,7 +20,7 @@ class Transaksi extends Model
         'diskon',
         'pajak',
         'status',
-        'dibayar',
+        'pelunasan',
         'id_user',
     ];
 }

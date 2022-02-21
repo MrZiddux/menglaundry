@@ -13,16 +13,18 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('tb_detail_transaksi', function (Blueprint $table) {
+        Schema::create('tb_detail_pembayaran', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_transaksi');
-            $table->unsignedBigInteger('id_paket');
-            $table->double('qty');
-            $table->double('harga');
-            $table->double('subtotal');
-            $table->text('keterangan')->nullable();
+            $table->double('total_harga');
+            $table->double('uang_dibayar');
+            $table->double('diskon');
+            $table->integer('pajak')->default(10);
+            $table->integer('biaya_tambahan');
+            $table->integer('total_bayar');
+            $table->integer('kembalian');
             $table->timestamps();
-            $table->foreign('id_paket')->references('id')->on('tb_paket');
+
             $table->foreign('id_transaksi')->references('id')->on('tb_transaksi');
         });
     }
@@ -34,6 +36,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tb_detail_transaksi');
+        Schema::dropIfExists('tb_detail_pembayaran');
     }
 };

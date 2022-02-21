@@ -9,7 +9,7 @@
    </div>
    <div class="section-body">
       <div class="row">
-         <div class="col-12">
+         <div class="col-12 col-xl-9 order-1">
             <div class="card">
                <div class="card-header">
                   <h4>Data Transaksi</h4>
@@ -21,11 +21,11 @@
                         <div class="form-row">
                            <div class="form-group col-md-6">
                               <label for="datain">Date Entry</label>
-                              <input type="date" class="form-control form-control-sm">
+                              <input type="date" class="form-control form-control-sm" value="{{ date('Y-m-d') }}">
                            </div>
                            <div class="form-group col-md-6">
-                              <label for="datain">Deadline</label>
-                              <input type="date" class="form-control form-control-sm">
+                              <label for="datain">Estimated Completed</label>
+                              <input type="date" class="form-control form-control-sm" value="{{ date('Y-m-d', strtotime(date('Y-m-d') . '+3 day')) }}">
                            </div>
                         </div>
                         <h3 class="section-title mt-0">
@@ -51,13 +51,36 @@
                         <div class="d-flex justify-content-end align-items-end h-100">
                            <div class="d-block">
                               <h5 class="text-center text-primary">Total Pembayaran</h5>
-                              <h3 class="text-center text-primary">Rp 100.000</h3>
+                              <h3 class="text-center text-primary">Rp <span id="totalHarga">0</span></h3>
                            </div>
                         </div>
                      </div>
                   </div>
                </div>
             </div>
+         </div>
+         <div class="col-3 order-3 order-xl-2">
+            <div class="card">
+               <div class="card-header">
+                  <h4>Payment</h4>
+               </div>
+               <div class="card-body">
+                  <div class="form-group">
+                     <label for="diskon">Discount</label>
+                     <input type="text" id="diskon" class="form-control form-control-sm">
+                  </div>
+                  <div class="form-group">
+                     <label for="pajak">Tax</label>
+                     <input type="text" id="pajak" class="form-control form-control-sm">
+                  </div>
+                  <div class="form-group">
+                     <label for="total_bayar">Cash</label>
+                     <input type="text" id="total_bayar" class="form-control form-control-sm">
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="col-12 order-2 order-xl-3">
             <div class="card">
                <div class="card-header">
                   <h4>List Item</h4>
@@ -70,8 +93,19 @@
                      </div>
                   </div>
                </div>
-               <div class="card-body">
-                  {{-- <div class="" id="wrapperTable"></div> --}}
+               <div class="card-body p-0">
+                  <div class="table-responsive">
+                     <table class="table table-striped table-md" id="tableCart">
+                        <tr>
+                           <th>Name</th>
+                           <th>Package Type</th>
+                           <th>Price</th>
+                           <th>QTY</th>
+                           <th>Subtotal</th>
+                           <th>Action</th>
+                        </tr>
+                     </table>
+                  </div>
                </div>
             </div>
          </div>
@@ -85,7 +119,17 @@
          const formatNumber = (number) => {
             return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
          }
-         
+
+         const delunderscore = (str) => {
+            return str.replace(/_/g, " ");
+         }
+
+         // make function to capitalize the first letter of each word in a string
+         const capitalize = (str) => {
+            return str.replace(/\w\S*/g, function (txt) {
+               return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+            });
+         }
          let dataPaket = []
          const gridPackage = new gridjs.Grid({
             server: {
@@ -97,10 +141,10 @@
                   data.map(item => {
                      array.push([
                         item.nama_paket,
-                        item.jenis,
+                        capitalize(delunderscore(item.jenis)),
                         formatNumber(item.harga),
                         new gridjs.html(
-                           `<button class="btn btn-icon btn-primary" data-id="${ item.id }"><i class="fas fa-check"></i></button>`
+                           `<button class="btn btn-icon btn-primary selectPackage" data-id="${ item.id }"><i class="fas fa-check"></i></button>`
                         ),
                      ])
                   })
@@ -201,7 +245,58 @@
             $('#tlpMember').val(data.tlp)
             $('#memberModal').modal('hide')
          })
-         
+
+         // make function calculateTotal
+         const calculateTotal = () => {
+            let total = 0
+            $('#tableCart tr:not(:first)').each(function() {
+               total += parseInt($(this).find('td:eq(4)').text())
+            })
+            $('#totalHarga').text(formatNumber(total))
+         }
+
+         $(document).on('click', '.selectPackage', function() {
+            let id = $(this).data('id')
+            let data = dataPaket.find(item => item.id == id)
+            let nama_paket = data.nama_paket
+            let jenis = data.jenis
+            let harga = data.harga
+            let newRow = `<tr data-id="${ data.id }">
+                              <td>${ nama_paket }</td>
+                              <td>${ capitalize(delunderscore(jenis)) }</td>
+                              <td id="harga_paket">${ formatNumber(harga) }</td>
+                              <td>
+                                 <input type="number" name="qty[]" value="1" class="form-control-plaintext qty" readonly>
+                                 <input type="hidden" name"id_paket[]" value="${ data.id }">
+                              </td>
+                              <td class="subtotal">
+                                 0
+                              </td>
+                              <td>
+                                 <button class="btn btn-icon btn-danger btn-sm deleteCart" data-id="${ data.id }"><i class="fas fa-trash"></i></button>
+                              </td>
+                           </tr>`
+            let row = $('#tableCart').find(`tr[data-id="${ data.id }"]`)
+            if (row.length > 0) {
+               let qty = row.find('.qty')
+               qty.val(parseInt(qty.val()) + 1)
+            } else {
+               $('#tableCart').append(newRow)
+            }
+            let qty = $(`#tableCart tr[data-id="${ data.id }"] .qty`)
+            let subtotal = parseInt(qty.val()) * harga
+            // $(`#tableCart tr[data-id="${ id }"] .subtotal`).text(formatNumber(subtotal))
+            $(`#tableCart tr[data-id="${ id }"] .subtotal`).text(subtotal)
+            calculateTotal()
+         })
+
+         // make function deleteCart when click button delete 1 row in tableCart
+         $(document).on('click', '.deleteCart', function() {
+            let id = $(this).data('id')
+            let data = dataPaket.find(item => item.id == id)
+            let row = $(this).closest('tr')
+            row.remove()
+         })  
       </script>
    </x-slot>
 </x-app>

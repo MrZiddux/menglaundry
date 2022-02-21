@@ -21,11 +21,8 @@ return new class extends Migration
             $table->dateTime('tgl');
             $table->dateTime('batas_waktu');
             $table->dateTime('tgl_bayar');
-            $table->integer('biaya_tambahan');
-            $table->double('diskon');
-            $table->integer('pajak');
             $table->enum('status', ['baru', 'proses', 'selesai', 'diambil']);
-            $table->enum('dibayar', ['dibayar', 'belum_dibayar']);
+            $table->enum('pelunasan', ['lunas', 'belum_lunas']);
             $table->unsignedBigInteger('id_user');
             $table->timestamps();
 
