@@ -15,17 +15,12 @@ return new class extends Migration
     {
         Schema::create('tb_detail_pembayaran', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_transaksi');
-            $table->double('total_harga');
+            $table->unsignedBigInteger('id_pembayaran');
             $table->double('uang_dibayar');
-            $table->double('diskon');
-            $table->integer('pajak')->default(10);
-            $table->integer('biaya_tambahan');
             $table->integer('total_bayar');
-            $table->integer('kembalian');
             $table->timestamps();
 
-            $table->foreign('id_transaksi')->references('id')->on('tb_transaksi');
+            $table->foreign('id_pembayaran')->references('id')->on('tb_pembayaran');
         });
     }
 

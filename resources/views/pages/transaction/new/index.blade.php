@@ -8,6 +8,7 @@
       </div>
    </div>
    <div class="section-body">
+      <form method="POST" action="{{ route('') }}"></form>
       <div class="row">
          <div class="col-12 col-xl-9 order-1">
             <div class="card">
@@ -71,12 +72,13 @@
                   </div>
                   <div class="form-group">
                      <label for="pajak">Tax</label>
-                     <input type="text" id="pajak" class="form-control form-control-sm">
+                     <input type="text" id="pajak" class="form-control form-control-sm" value="10" readonly>
                   </div>
                   <div class="form-group">
                      <label for="total_bayar">Cash</label>
                      <input type="text" id="total_bayar" class="form-control form-control-sm">
                   </div>
+                  <button class="btn btn-primary btn-block" id="btnSimpan">Save</button>
                </div>
             </div>
          </div>
@@ -120,16 +122,20 @@
             return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
          }
 
+         const unformatNumber = (number) => {
+            return parseInt(number.replaceAll(/\./g, ''));
+         }
+
          const delunderscore = (str) => {
             return str.replace(/_/g, " ");
          }
 
-         // make function to capitalize the first letter of each word in a string
          const capitalize = (str) => {
             return str.replace(/\w\S*/g, function (txt) {
                return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
             });
          }
+
          let dataPaket = []
          const gridPackage = new gridjs.Grid({
             server: {
@@ -149,7 +155,7 @@
                      ])
                   })
                   return array
-               } 
+               }
             },
             columns: [
                {
@@ -240,7 +246,6 @@
          $(document).on('click', '.selectMember', function() {
             let id = $(this).data('id')
             let data = dataMember.find(item => item.id == id)
-            console.log(data.tlp);
             $('#namaMember').val(data.nama)
             $('#tlpMember').val(data.tlp)
             $('#memberModal').modal('hide')
@@ -250,7 +255,7 @@
          const calculateTotal = () => {
             let total = 0
             $('#tableCart tr:not(:first)').each(function() {
-               total += parseInt($(this).find('td:eq(4)').text())
+               total += parseInt(unformatNumber($(this).find('td:eq(4)').text()))
             })
             $('#totalHarga').text(formatNumber(total))
          }
@@ -285,9 +290,9 @@
             }
             let qty = $(`#tableCart tr[data-id="${ data.id }"] .qty`)
             let subtotal = parseInt(qty.val()) * harga
-            // $(`#tableCart tr[data-id="${ id }"] .subtotal`).text(formatNumber(subtotal))
-            $(`#tableCart tr[data-id="${ id }"] .subtotal`).text(subtotal)
+            $(`#tableCart tr[data-id="${ id }"] .subtotal`).text(formatNumber(subtotal))
             calculateTotal()
+            $('#packageModal').modal('hide')
          })
 
          // make function deleteCart when click button delete 1 row in tableCart
@@ -296,7 +301,8 @@
             let data = dataPaket.find(item => item.id == id)
             let row = $(this).closest('tr')
             row.remove()
-         })  
+            calculateTotal()
+         })
       </script>
    </x-slot>
 </x-app>
