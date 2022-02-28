@@ -8,7 +8,8 @@
       </div>
    </div>
    <div class="section-body">
-      <form method="POST" action="{{ route('') }}"></form>
+      <form method="POST" action="{{ route('transaction.store') }}">
+      @csrf
       <div class="row">
          <div class="col-12 col-xl-9 order-1">
             <div class="card">
@@ -22,11 +23,11 @@
                         <div class="form-row">
                            <div class="form-group col-md-6">
                               <label for="datain">Date Entry</label>
-                              <input type="date" class="form-control form-control-sm" value="{{ date('Y-m-d') }}">
+                              <input type="date" class="form-control form-control-sm" value="{{ date('Y-m-d') }}" name="tgl">
                            </div>
                            <div class="form-group col-md-6">
                               <label for="datain">Estimated Completed</label>
-                              <input type="date" class="form-control form-control-sm" value="{{ date('Y-m-d', strtotime(date('Y-m-d') . '+3 day')) }}">
+                              <input type="date" class="form-control form-control-sm" value="{{ date('Y-m-d', strtotime(date('Y-m-d') . '+3 day')) }}" name="batas_waktu">
                            </div>
                         </div>
                         <h3 class="section-title mt-0">
@@ -34,6 +35,7 @@
                         </h3>
                         <div class="form-row">
                            <div class="form-group col-md-6">
+                              <input type="hidden" name="id_member" id="idMember">
                               <label for="">Name</label>
                               <input type="text" class="form-control form-control-sm" placeholder="John Doe" readonly id="namaMember">
                            </div>
@@ -68,15 +70,15 @@
                <div class="card-body">
                   <div class="form-group">
                      <label for="diskon">Discount</label>
-                     <input type="text" id="diskon" class="form-control form-control-sm">
+                     <input type="text" id="diskon" class="form-control form-control-sm" name="diskon">
                   </div>
                   <div class="form-group">
                      <label for="pajak">Tax</label>
-                     <input type="text" id="pajak" class="form-control form-control-sm" value="10" readonly>
+                     <input type="text" id="pajak" class="form-control form-control-sm" value="10" readonly name="pajak">
                   </div>
                   <div class="form-group">
                      <label for="total_bayar">Cash</label>
-                     <input type="text" id="total_bayar" class="form-control form-control-sm">
+                     <input type="text" id="total_bayar" class="form-control form-control-sm" name="uang_dibayar">
                   </div>
                   <button class="btn btn-primary btn-block" id="btnSimpan">Save</button>
                </div>
@@ -88,7 +90,7 @@
                   <h4>List Item</h4>
                   <div class="card-header-form">
                      <div class="input-group">
-                        <input type="text" name="search" class="form-control" placeholder="Search">
+                        <input type="text" class="form-control" placeholder="Search">
                         <div class="input-group-btn">
                            <button type="button" class="btn btn-primary btn-icon" data-toggle="modal" data-target="#packageModal"><i class="fas fa-search"></i> Find Package</button>
                         </div>
@@ -116,6 +118,7 @@
    <x-slot name="btm">
       @include('pages.transaction.new._modal')
    </x-slot>
+   </form>
    <x-slot name="script">
       <script>
          const formatNumber = (number) => {
@@ -246,6 +249,7 @@
          $(document).on('click', '.selectMember', function() {
             let id = $(this).data('id')
             let data = dataMember.find(item => item.id == id)
+            $('#idMember').val(data.id)
             $('#namaMember').val(data.nama)
             $('#tlpMember').val(data.tlp)
             $('#memberModal').modal('hide')
@@ -272,7 +276,8 @@
                               <td id="harga_paket">${ formatNumber(harga) }</td>
                               <td>
                                  <input type="number" name="qty[]" value="1" class="form-control-plaintext qty" readonly>
-                                 <input type="hidden" name"id_paket[]" value="${ data.id }">
+                                 <input type="hidden" name="id_paket[]" value="${ data.id }">
+                                 <input type="hidden" name="harga[]" value="${ harga }">
                               </td>
                               <td class="subtotal">
                                  0
