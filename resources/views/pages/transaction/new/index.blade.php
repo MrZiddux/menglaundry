@@ -55,7 +55,7 @@
                            <div class="d-block">
                               <h5 class="text-center text-primary">Total Pembayaran</h5>
                               <h3 class="text-center text-primary">Rp <span id="totalHarga">0</span></h3>
-                              <input type="hidden" name="total_harga" value="0" id="inputTotalHarga">
+                              <input type="text" name="total_harga" value="0" id="inputTotalHarga">
                            </div>
                         </div>
                      </div>
@@ -79,7 +79,7 @@
                   </div>
                   <div class="form-group">
                      <label for="biaya_tambahan">Biaya Tambahan</label>
-                     <input type="text" id="biaya_tambahan" class="form-control form-control-sm" value="0" name="biaya_tambahan">
+                     <input type="text" id="biaya_tambahan" class="form-control form-control-sm" name="biaya_tambahan" value="0">
                   </div>
                   <div class="form-group">
                      <label for="total_bayar">Cash</label>
@@ -263,40 +263,28 @@
          // make function calculateTotal from input, diskon, tax, biaya tambahan
          const calculateTotal = () => {
             let total = 0
-            let diskon = $('#diskon').val()
-            let pajak = $('#pajak').val()
-            let biaya_tambahan = $('#biaya_tambahan').val()
+            let diskon = parseInt($('#diskon').val())
+            let pajak = parseInt($('#pajak').val())
+            let biaya_tambahan = parseInt($('#biaya_tambahan').val())
             $('#tableCart tr:not(:first)').each(function() {
                total += parseInt(unformatNumber($(this).find('td:eq(4)').text()))
             })
-            console.log(diskon)
-            console.log(pajak)
-            console.log(biaya_tambahan)
-            console.log(total);
-            let calculateDiskon = parseInt(total + diskon/100)
-            console.log(calculateDiskon);
-            let calculatePajak = parseInt((total+calculateDiskon)/pajak/100)
-            console.log(calculatePajak);
-            let calculate = parseInt(total + calculateDiskon + calculatePajak + biaya_tambahan)
-            console.log(calculate);
+            let calculateDiskon = total*diskon/100
+            let calculatePajak = (total-calculateDiskon)*pajak/100
+            let calculate = ((total-calculateDiskon)+calculatePajak)+biaya_tambahan
             $('#totalHarga').text(formatNumber(calculate))
+            $('#inputTotalHarga').val(calculate)
          }
 
-         // make function to calculate total when input diskon change calculate total change
-         
-         
-         // const calculateTotal = () => {
-         //    let total = 0
-         //    $('#tableCart tr:not(:first)').each(function() {
-         //       total += parseInt(unformatNumber($(this).find('td:eq(4)').text()))
-         //    })
-         //    $('#totalHarga').text(formatNumber(total))
-         //    $('#inputTotalHarga').val(total)
-         // }
-
-         $('#diskon').on('keyup change', calculateTotal())
-         $('#tax').on('keyup change', calculateTotal())
-         $('#biaya_tambahan').on('keyup change', calculateTotal())
+         $('#diskon').on('input', function () {
+            calculateTotal()
+         })
+         $('#tax').on('input', function () {
+            calculateTotal()
+         })
+         $('#biaya_tambahan').on('input', function () {
+            calculateTotal()
+         })
          
          $(document).on('click', '.selectPackage', function() {
             let id = $(this).data('id')

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\DetailTransaksi;
+use App\Models\Pembayaran;
 use App\Models\Transaksi;
 use Illuminate\Http\Request;
 
@@ -49,5 +50,14 @@ class TransaksiController extends Controller
             'keterangan' => '',
          ]);
       };
+
+      $pembayaran = Pembayaran::create([
+         'id_transaksi' => $transaksi->id,
+         'total_harga' => $r->total_harga,
+         'diskon' => $r->diskon,
+         'pajak' => $r->pajak,
+         'biaya_tambahan' => $r->biaya_tambahan,
+         // 'kembalian' => $r->total_harga,
+      ]);
    }
 }
