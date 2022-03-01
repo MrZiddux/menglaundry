@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\MemberExport;
 use App\Models\Member;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class MemberController extends Controller
 {
@@ -35,5 +37,10 @@ class MemberController extends Controller
     {
         Member::findOrFail($r->id)->delete();
         return response()->json(array('success' => true));
+    }
+
+    public function export()
+    {
+        return Excel::download(new MemberExport, 'member.xlsx');
     }
 }

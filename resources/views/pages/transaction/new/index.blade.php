@@ -55,6 +55,7 @@
                            <div class="d-block">
                               <h5 class="text-center text-primary">Total Pembayaran</h5>
                               <h3 class="text-center text-primary">Rp <span id="totalHarga">0</span></h3>
+                              <input type="hidden" name="total_harga" value="0" id="inputTotalHarga">
                            </div>
                         </div>
                      </div>
@@ -70,15 +71,19 @@
                <div class="card-body">
                   <div class="form-group">
                      <label for="diskon">Discount</label>
-                     <input type="text" id="diskon" class="form-control form-control-sm" name="diskon">
+                     <input type="text" id="diskon" class="form-control form-control-sm" name="diskon" value="0">
                   </div>
                   <div class="form-group">
                      <label for="pajak">Tax</label>
                      <input type="text" id="pajak" class="form-control form-control-sm" value="10" readonly name="pajak">
                   </div>
                   <div class="form-group">
+                     <label for="biaya_tambahan">Biaya Tambahan</label>
+                     <input type="text" id="biaya_tambahan" class="form-control form-control-sm" value="0" name="biaya_tambahan">
+                  </div>
+                  <div class="form-group">
                      <label for="total_bayar">Cash</label>
-                     <input type="text" id="total_bayar" class="form-control form-control-sm" name="uang_dibayar">
+                     <input type="text" id="total_bayar" class="form-control form-control-sm" name="uang_dibayar" value="0">
                   </div>
                   <button class="btn btn-primary btn-block" id="btnSimpan">Save</button>
                </div>
@@ -115,10 +120,10 @@
          </div>
       </div>
    </div>
+   </form>
    <x-slot name="btm">
       @include('pages.transaction.new._modal')
    </x-slot>
-   </form>
    <x-slot name="script">
       <script>
          const formatNumber = (number) => {
@@ -255,15 +260,44 @@
             $('#memberModal').modal('hide')
          })
 
-         // make function calculateTotal
+         // make function calculateTotal from input, diskon, tax, biaya tambahan
          const calculateTotal = () => {
             let total = 0
+            let diskon = $('#diskon').val()
+            let pajak = $('#pajak').val()
+            let biaya_tambahan = $('#biaya_tambahan').val()
             $('#tableCart tr:not(:first)').each(function() {
                total += parseInt(unformatNumber($(this).find('td:eq(4)').text()))
             })
-            $('#totalHarga').text(formatNumber(total))
+            console.log(diskon)
+            console.log(pajak)
+            console.log(biaya_tambahan)
+            console.log(total);
+            let calculateDiskon = parseInt(total + diskon/100)
+            console.log(calculateDiskon);
+            let calculatePajak = parseInt((total+calculateDiskon)/pajak/100)
+            console.log(calculatePajak);
+            let calculate = parseInt(total + calculateDiskon + calculatePajak + biaya_tambahan)
+            console.log(calculate);
+            $('#totalHarga').text(formatNumber(calculate))
          }
 
+         // make function to calculate total when input diskon change calculate total change
+         
+         
+         // const calculateTotal = () => {
+         //    let total = 0
+         //    $('#tableCart tr:not(:first)').each(function() {
+         //       total += parseInt(unformatNumber($(this).find('td:eq(4)').text()))
+         //    })
+         //    $('#totalHarga').text(formatNumber(total))
+         //    $('#inputTotalHarga').val(total)
+         // }
+
+         $('#diskon').on('keyup change', calculateTotal())
+         $('#tax').on('keyup change', calculateTotal())
+         $('#biaya_tambahan').on('keyup change', calculateTotal())
+         
          $(document).on('click', '.selectPackage', function() {
             let id = $(this).data('id')
             let data = dataPaket.find(item => item.id == id)
@@ -275,9 +309,9 @@
                               <td>${ capitalize(delunderscore(jenis)) }</td>
                               <td id="harga_paket">${ formatNumber(harga) }</td>
                               <td>
-                                 <input type="number" name="qty[]" value="1" class="form-control-plaintext qty" readonly>
-                                 <input type="hidden" name="id_paket[]" value="${ data.id }">
-                                 <input type="hidden" name="harga[]" value="${ harga }">
+                                 <input type="number" name="item[qty][]" value="1" class="form-control-plaintext qty" readonly>
+                                 <input type="hidden" name="item[id_paket][]" value="${ data.id }">
+                                 <input type="hidden" name="item[harga][]" value="${ harga }">
                               </td>
                               <td class="subtotal">
                                  0

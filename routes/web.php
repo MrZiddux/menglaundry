@@ -14,6 +14,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
    Route::post('members/store', [MemberController::class, 'store'])->name('members.store');
    Route::post('members/update', [MemberController::class, 'update'])->name('members.update');
    Route::post('members/destroy', [MemberController::class, 'destroy'])->name('members.destroy');
+   Route::get('members/export', [MemberController::class, 'export'])->name('members.export');
 
    Route::get('outlets', [OutletController::class, 'index']);
    Route::get('outlets/getData', [OutletController::class, 'getData']);

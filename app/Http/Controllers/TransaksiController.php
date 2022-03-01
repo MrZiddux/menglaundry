@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DetailTransaksi;
 use App\Models\Transaksi;
 use Illuminate\Http\Request;
 
@@ -12,38 +13,41 @@ class TransaksiController extends Controller
       return view('pages.transaction.new.index');
    }
 
-   // make function looping store data from new transaction
+   private function generateKodeInvoice()
+   {
+      $formatInvoice = 'INV' . date('Ymd');
+      $lastInvoice = Transaksi::orderBy('kode_invoice', 'desc')->first();
+      $generateInvoice = (is_null($lastInvoice)) ? '001' : (int)substr($lastInvoice->kode_invoice, strlen($formatInvoice) + 1, strlen($lastInvoice->kode_invoice)) + 1;
+      $generateInvoiceAfter = (strlen($generateInvoice) < 3) ? str_repeat('0', 3 - strlen($generateInvoice)) . $generateInvoice : $generateInvoice;
+      $kodeInvoice = $formatInvoice . $generateInvoiceAfter;
+      return $kodeInvoice;
+   }
 
    public function store(Request $r)
    {
-      dd($r);
-      for ($i = 0; $i < count($r->id_barang); $i++) {
-         $data = new Transaksi;
-         $data->id_outlet = $r->id_outlet;
-         $data->kode_invoice = $r->kode_invoice;
-         $data->id_member = $r->id_member;
-         $data->tgl = $r->tgl;
-         $data->batas_waktu = $r->batas_waktu;
-         $data->tgl_bayar = $r->tgl_bayar;
-         $data->biaya_tambahan = $r->biaya_tambahan;
-         $data->diskon = $r->diskon;
-         $data->pajak = $r->pajak;
-         $data->status = $r->status;
-         $data->pelunasan = $r->pelunasan;
-         $data->id_user = $r->id_user;
-         $data->save();
-      }
-   }
+      // dd($r);
+      $transaksi = Transaksi::create([
+         'id_outlet' => auth()->user()->id_outlet,
+         'kode_invoice' => $this->generateKodeInvoice(),
+         'id_member' => $r->id_member,
+         'tgl' => $r->tgl,
+         'batas_waktu' => $r->batas_waktu,
+         'tgl_bayar' => ($r->uang_dibayar != 0 ? date('Y-m-d H:i:s') : null),
+         'status' => 'baru',
+         'pelunasan' => ($r->uang_dibayar != $r->total_harga ? 'belum_lunas' : 'lunas'),
+         'id_user' => auth()->user()->id,
+      ]);
 
-   //make function for make transaction id like TRYYYYMMDD0001
-   public function kode_transaksi()
-   {
-      $data = Transaksi::orderBy('id', 'desc')->first();
-      if ($data == null) {
-         $kode = 'TR' . date('ymd') . '0001';
-      } else {
-         $kode = 'TR' . date('ymd') . str_pad(((int)substr($data->kode_invoice, -4)) + 1, 4, '0', STR_PAD_LEFT);
-      }
-      return $kode;
+      // create looping for detail transaksi
+      for ($i = 0; $i < count($r['item']['id_paket']); $i++) {
+         DetailTransaksi::create([
+            'id_transaksi' => $transaksi->id,
+            'id_paket' => $r['item']['id_paket'][$i],
+            'qty' => $r['item']['qty'][$i],
+            'harga' => $r['item']['harga'][$i],
+            'subtotal' => $r['item']['qty'][$i] * $r['item']['harga'][$i],
+            'keterangan' => '',
+         ]);
+      };
    }
 }
