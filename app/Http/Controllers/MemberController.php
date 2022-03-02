@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Exports\MemberExport;
+use App\Imports\MemberImport;
 use App\Models\Member;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx\Rels;
 
 class MemberController extends Controller
 {
@@ -41,6 +43,19 @@ class MemberController extends Controller
 
     public function export()
     {
-        return Excel::download(new MemberExport, 'member.xlsx');
+        $date = date('Y-m-d-');
+        return Excel::download(new MemberExport, $date . 'member.xlsx');
+    }
+
+    public function import(Request $r)
+    {
+        $r->validate([
+            'importFile' => 'required|mimes:csv,xls,xlsx',
+        ]);
+        $file = $r->importFile;
+        $nama_file = date('Ymdhi') . $file->getClientOriginalName();
+        $file->move('file_import', $nama_file);
+        Excel::import(new MemberImport, public_path('/file_import/' . $nama_file));
+        return back();
     }
 }

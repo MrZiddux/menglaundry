@@ -118,4 +118,32 @@
          </form>
       </div>
    </div>
-   </div
+</div>
+
+<!-- Modal Create Members -->
+<div class="modal fade" id="importModal" tabindex="-1" role="dialog">
+   <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+         <div class="modal-header">
+         <h5 class="modal-title" id="exampleModalLabel">Import Data Member</h5>
+         <button type="button" class="close btnResetForm" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+         </button>
+         </div>
+         <form method="POST" action="{{ route('members.import') }}" autocomplete="off" id="formImport" enctype="multipart/form-data">
+            @csrf
+            <div class="modal-body">
+               <label>Import File</label>
+               <div class="custom-file">
+                  <input type="file" name="importFile" class="custom-file-input" id="customFile">
+                  <label class="custom-file-label" for="customFile">Pilih file</label>
+               </div>
+            </div>
+            <div class="modal-footer bg-whitesmoke br">
+               <button type="submit" class="btn btn-primary" id="btnImport">Import</button>
+               <button type="button" class="btn btn-secondary btnResetForm" data-dismiss="modal">Close</button>
+            </div>
+         </form>
+      </div>
+   </div>
+</div>

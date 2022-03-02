@@ -9,4 +9,12 @@ class Pembayaran extends Model
 {
     use HasFactory;
     protected $table = 'tb_pembayaran';
+    protected $fillable = [
+        'id_transaksi',
+        'total_harga',
+        'diskon',
+        'pajak',
+        'biaya_tambahan',
+        'kembalian',
+    ];
 }

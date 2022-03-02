@@ -3,7 +3,7 @@
       <h1>New Transaction Page</h1>
       <div class="section-header-breadcrumb">
          <div class="breadcrumb-item active"><a href="/">Dashboard</a></div>
-         <div class="breadcrumb-item active"><a href="/transactions">Transaction</a></div>
+         <div class="breadcrumb-item active"><a href="/transaction/manage">Transaction</a></div>
          <div class="breadcrumb-item">New Transaction</div>
       </div>
    </div>
@@ -70,6 +70,15 @@
                </div>
                <div class="card-body">
                   <div class="form-group">
+                     <label>Jenis Pembayaran</label>
+                     <select class="form-control" name="jenis">
+                        <option selected disabled>Pilih Pembayaran ...</option>
+                        <option value="dp">Dp</option>
+                        <option value="bayar_nanti">Bayar Nanti</option>
+                        <option value="cash">Cash</option>
+                     </select>
+                  </div>
+                  <div class="form-group">
                      <label for="diskon">Discount</label>
                      <input type="text" id="diskon" class="form-control form-control-sm" name="diskon" value="0">
                   </div>
@@ -82,8 +91,8 @@
                      <input type="text" id="biaya_tambahan" class="form-control form-control-sm" name="biaya_tambahan" value="0">
                   </div>
                   <div class="form-group">
-                     <label for="total_bayar">Cash</label>
-                     <input type="text" id="total_bayar" class="form-control form-control-sm" name="uang_dibayar" value="0">
+                     <label for="uang_dibayar">Cash</label>
+                     <input type="text" id="uang_dibayar" class="form-control form-control-sm" name="uang_dibayar" value="0">
                   </div>
                   <button class="btn btn-primary btn-block" id="btnSimpan">Save</button>
                </div>

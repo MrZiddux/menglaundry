@@ -57,7 +57,7 @@ class TransaksiController extends Controller
          'diskon' => $r->diskon,
          'pajak' => $r->pajak,
          'biaya_tambahan' => $r->biaya_tambahan,
-         // 'kembalian' => $r->total_harga,
+         'kembalian' => $r->uang_dibayar - $r->total_harga
       ]);
    }
 }
