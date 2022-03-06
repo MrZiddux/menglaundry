@@ -16,8 +16,7 @@ return new class extends Migration
         Schema::create('tb_detail_pembayaran', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_pembayaran');
-            $table->double('uang_dibayar');
-            $table->integer('total_bayar');
+            $table->integer('uang_dibayar');
             $table->timestamps();
 
             $table->foreign('id_pembayaran')->references('id')->on('tb_pembayaran');

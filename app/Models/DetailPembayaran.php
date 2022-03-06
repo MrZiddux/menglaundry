@@ -10,13 +10,7 @@ class DetailPembayaran extends Model
     use HasFactory;
     protected $table = "tb_detail_pembayaran";
     protected $fillable = [
-        'id_transaksi',
-        'total_harga',
+        'id_pembayaran',
         'uang_dibayar',
-        'diskon',
-        'pajak',
-        'biaya_tambahan',
-        'total_bayar',
-        'kembalian',
     ];
 }

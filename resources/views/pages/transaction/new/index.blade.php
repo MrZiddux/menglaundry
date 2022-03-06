@@ -71,7 +71,7 @@
                <div class="card-body">
                   <div class="form-group">
                      <label>Jenis Pembayaran</label>
-                     <select class="form-control" name="jenis">
+                     <select class="form-control form-control-sm" name="jenis" id="jenisPembayaran">
                         <option selected disabled>Pilih Pembayaran ...</option>
                         <option value="dp">Dp</option>
                         <option value="bayar_nanti">Bayar Nanti</option>
@@ -80,19 +80,19 @@
                   </div>
                   <div class="form-group">
                      <label for="diskon">Discount</label>
-                     <input type="text" id="diskon" class="form-control form-control-sm" name="diskon" value="0">
+                     <input type="text" id="diskon" class="form-control form-control-sm" name="diskon" value="0" readonly>
                   </div>
                   <div class="form-group">
                      <label for="pajak">Tax</label>
-                     <input type="text" id="pajak" class="form-control form-control-sm" value="10" readonly name="pajak">
+                     <input type="text" id="pajak" class="form-control form-control-sm" value="10" name="pajak" readonly>
                   </div>
                   <div class="form-group">
                      <label for="biaya_tambahan">Biaya Tambahan</label>
-                     <input type="text" id="biaya_tambahan" class="form-control form-control-sm" name="biaya_tambahan" value="0">
+                     <input type="text" id="biaya_tambahan" class="form-control form-control-sm" name="biaya_tambahan" value="0" readonly>
                   </div>
                   <div class="form-group">
                      <label for="uang_dibayar">Cash</label>
-                     <input type="text" id="uang_dibayar" class="form-control form-control-sm" name="uang_dibayar" value="0">
+                     <input type="text" id="uang_dibayar" class="form-control form-control-sm" name="uang_dibayar" value="0" readonly>
                   </div>
                   <button class="btn btn-primary btn-block" id="btnSimpan">Save</button>
                </div>
@@ -337,6 +337,30 @@
             let data = dataPaket.find(item => item.id == id)
             let row = $(this).closest('tr')
             row.remove()
+            calculateTotal()
+         })
+
+         // make function when select jenisPembayaran change input diskon remove readonly
+         $('#jenisPembayaran').on('change', function() {
+            let jenis = $(this).val()
+            if (jenis == 'dp') {
+               $('#diskon').val(0)
+               $('#diskon').attr('readonly', true)
+               $('#biaya_tambahan').attr('readonly', false)
+               $('#uang_dibayar').attr('readonly', false)
+            }
+            else if (jenis == 'bayar_nanti') {
+               $('#diskon').val(0)
+               $('#biaya_tambahan').val(0)
+               $('#uang_dibayar').val(0)
+               $('#diskon').attr('readonly', true)
+               $('#biaya_tambahan').attr('readonly', true)
+               $('#uang_dibayar').attr('readonly', true)
+            } else if (jenis == 'cash') {
+               $('#diskon').attr('readonly', false)
+               $('#biaya_tambahan').attr('readonly', false)
+               $('#uang_dibayar').attr('readonly', false)
+            }
             calculateTotal()
          })
       </script>

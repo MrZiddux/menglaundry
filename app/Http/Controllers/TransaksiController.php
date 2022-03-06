@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DetailPembayaran;
 use App\Models\DetailTransaksi;
 use App\Models\Pembayaran;
 use App\Models\Transaksi;
@@ -58,6 +59,11 @@ class TransaksiController extends Controller
          'pajak' => $r->pajak,
          'biaya_tambahan' => $r->biaya_tambahan,
          'kembalian' => $r->uang_dibayar - $r->total_harga
+      ]);
+
+      DetailPembayaran::create([
+         'id_pembayaran' => $pembayaran->id,
+         'uang_dibayar' => $r->uang_dibayar,
       ]);
    }
 }

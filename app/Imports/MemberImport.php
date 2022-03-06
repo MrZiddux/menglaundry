@@ -16,10 +16,10 @@ class MemberImport implements ToModel, WithHeadingRow
     public function model(array $row)
     {
         return new Member([
-            'nama' => $row[1],
-            'jenis_kelamin' => $row[2],
-            'tlp' => $row[3],
-            'alamat' => $row[4],
+            'nama' => $row[0],
+            'jenis_kelamin' => $row[1],
+            'tlp' => $row[2],
+            'alamat' => $row[3],
         ]);
     }
 
