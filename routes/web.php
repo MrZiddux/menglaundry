@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AlgoritmaController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\OutletController;
@@ -35,6 +36,8 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
    Route::get('transaction/new', [TransaksiController::class, 'showNewTransaction'])->name('transaction.new');
    Route::post('transaction/new/store', [TransaksiController::class, 'store'])->name('transaction.store');
    Route::view('transaction/manage', 'pages.transaction.manage.index');
+
+   Route::get('algoritma', [AlgoritmaController::class, 'view']);
 
    Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 });

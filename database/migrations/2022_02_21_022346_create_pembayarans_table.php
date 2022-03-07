@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('tb_pembayaran', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_transaksi');
+            $table->string('jenis_pembayaran');
             $table->double('total_harga');
             $table->double('diskon');
             $table->integer('pajak')->default(10);

@@ -54,6 +54,7 @@ class TransaksiController extends Controller
 
       $pembayaran = Pembayaran::create([
          'id_transaksi' => $transaksi->id,
+         'jenis_pembayaran' => $r->jenis_pembayaran,
          'total_harga' => $r->total_harga,
          'diskon' => $r->diskon,
          'pajak' => $r->pajak,

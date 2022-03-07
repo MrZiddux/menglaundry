@@ -19,12 +19,14 @@
             <li class="{{ request()->is('transactions') ? 'active' : '' }}"><a href="/transactions" class="nav-link"><i class="fas fa-shopping-cart"></i><span>Transactions</span></a></li>
             <li class="menu-header">Manage</li>
             <li class="{{ request()->is('users') ? 'active' : '' }}"><a href="/users" class="nav-link"><i class="fas fa-user-circle"></i><span>Users</span></a></li>
+            <li class="menu-header">Algoritm</li>
+            <li class="{{ request()->is('algoritma') ? 'active' : '' }}"><a href="/algoritma" class="nav-link"><i class="fas fa-project-diagram"></i><span>Algoritma</span></a></li>
         </ul>
 
-        <div class="mt-4 mb-4 p-3 hide-sidebar-mini">
+        {{-- <div class="mt-4 mb-4 p-3 hide-sidebar-mini">
             <a href="https://getstisla.com/docs" class="btn btn-primary btn-lg btn-block btn-icon-split">
             <i class="fas fa-rocket"></i> Documentation
             </a>
-        </div>
+        </div> --}}
     </aside>
 </div>

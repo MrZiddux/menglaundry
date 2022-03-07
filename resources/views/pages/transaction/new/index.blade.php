@@ -71,7 +71,7 @@
                <div class="card-body">
                   <div class="form-group">
                      <label>Jenis Pembayaran</label>
-                     <select class="form-control form-control-sm" name="jenis" id="jenisPembayaran">
+                     <select class="form-control form-control-sm" name="jenis_pembayaran" id="jenisPembayaran">
                         <option selected disabled>Pilih Pembayaran ...</option>
                         <option value="dp">Dp</option>
                         <option value="bayar_nanti">Bayar Nanti</option>

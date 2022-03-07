@@ -11,6 +11,7 @@ class Pembayaran extends Model
     protected $table = 'tb_pembayaran';
     protected $fillable = [
         'id_transaksi',
+        'jenis_pembayaran',
         'total_harga',
         'diskon',
         'pajak',

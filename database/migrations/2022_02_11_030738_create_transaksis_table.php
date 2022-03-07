@@ -20,7 +20,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_member');
             $table->dateTime('tgl');
             $table->dateTime('batas_waktu');
-            $table->dateTime('tgl_bayar');
+            $table->dateTime('tgl_bayar')->nullable();
             $table->enum('status', ['baru', 'proses', 'selesai', 'diambil']);
             $table->enum('pelunasan', ['lunas', 'belum_lunas']);
             $table->unsignedBigInteger('id_user');
