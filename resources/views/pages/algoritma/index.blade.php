@@ -16,6 +16,10 @@
                <form id="todolistForm">
                   <div class="card-body">
                      <div class="form-group">
+                        <label for="id">Id</label>
+                        <input type="text" id="id" class="form-control" placeholder="What's your id?" name="id">
+                     </div>
+                     <div class="form-group">
                         <label for="tenggatWaktu">Tenggat Waktu</label>
                         <input type="datetime-local" id="tenggatWaktu" class="form-control" name="tenggat_waktu">
                      </div>
@@ -33,16 +37,30 @@
          </div>
          <div class="col-lg-8">
             <div class="card">
-               <div class="card-header">
+               <div class="card-header row justify-content-between align-items-center">
                   <h4>List Data</h4>
+                  <div class="card-header-form">
+                     <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search">
+                        <div class="input-group-btn">
+                           <button type="button" class="btn btn-primary btn-icon" data-toggle="modal" data-target="#packageModal"><i class="fas fa-search"></i> Find Package</button>
+                        </div>
+                     </div>
+                  </div>
+                  <button id="sortByDate" class="btn btn-sm btn-icon icon-left btn-primary ml-2"><i class="fas fa-sort"></i>Sort Date</button>
                </div>
                <div class="card-body p-0">
                   <div class="table-responsive">
                      <table class="table table-striped table-md" id="tableTodolist">
                         <tr class="header">
                            <th>No</th>
+                           <th class="d-flex justify-content-between">
+                              Id
+                              <a href="javascript;" id="sortById"><i class="fas fa-sort"></i>&nbsp;Sort Id</a>
+                           </th>
                            <th>Kegiatan</th>
                            <th>Tenggat Waktu</th>
+                           <th>&nbsp;</th>
                         </tr>
                      </table>
                   </div>
@@ -53,6 +71,28 @@
    </div>
    <x-slot name="script">
       <script>
+         const checkDataForBtn = () => {
+            if (JSON.parse(localStorage.getItem('data')).length === 0) {
+               $('#sortById').attr('disabled', true)
+               $('#sortByDate').attr('disabled', true)
+               $('#sortById').removeClass('btn-primary')
+               $('#sortById').addClass('btn-secondary')
+               $('#sortByDate').removeClass('btn-primary')
+               $('#sortByDate').addClass('btn-secondary')
+            } else {
+               $('#sortById').removeAttr('disabled')
+               $('#sortByDate').removeAttr('disabled')
+               $('#sortById').removeClass('btn-secondary')
+               $('#sortById').addClass('btn-primary')
+               $('#sortByDate').removeClass('btn-secondary')
+               $('#sortByDate').addClass('btn-primary')
+            }
+         }
+
+         const resetForm = () => {
+            $('#todolistForm')[0].reset()
+         }
+
          let dataAll = []
          $('#todolistForm').on('submit', function(e) {
             e.preventDefault()
@@ -61,9 +101,21 @@
             for (const key of dataForm) {
                obj[key[0]] = key[1]
             }
-            dataAll.push(obj)
-            localStorage.setItem('data', JSON.stringify(dataAll));
-            renderTable()
+            // make if when input is empty add class to input is-invalid
+            if (obj.id === '' || obj.tenggat_waktu === '' || obj.kegiatan === '') {
+               $('#id').addClass('is-invalid')
+               $('#tenggatWaktu').addClass('is-invalid')
+               $('#kegiatan').addClass('is-invalid')
+            } else {
+               $('#id').removeClass('is-invalid')
+               $('#tenggatWaktu').removeClass('is-invalid')
+               $('#kegiatan').removeClass('is-invalid')
+               dataAll.push(obj)
+               localStorage.setItem('data', JSON.stringify(dataAll))
+               renderTable()
+               checkDataForBtn()
+               resetForm()
+            }
          })
 
          const renderTable = () => {
@@ -73,8 +125,10 @@
                return data +=  `
                   <tr class="item">
                      <td>${index+1}</td>
+                     <td>${item.id}</td>
                      <td>${item.kegiatan}</td>
                      <td>${item.tenggat_waktu}</td>
+                     <td><button data-index="${index+1}" class="btn btn-sm btn-danger">Remove</button></td>
                   </tr>`
             })
             $('.item').remove()
@@ -82,8 +136,11 @@
          }
 
          $(window).on('load', function () {
+            checkDataForBtn()
             renderTable()
             let data = JSON.parse(localStorage.getItem('data'))
+
+            // CARA PENDEK
             dataAll = data
 
             // CARA RIVALDI
@@ -97,66 +154,52 @@
                // })
          })
 
+         $('#tableTodolist').on('click', '.btn-danger', function() {
+            let index = $(this).data('index')
+            dataAll.splice(index-1, 1)
+            localStorage.setItem('data', JSON.stringify(dataAll))
+            checkDataForBtn()
+            renderTable()
+         })
 
+         $('#sortByDate').on('click', function(e) {
+            e.preventDefault()
+            let data = JSON.parse(localStorage.getItem('data'))
+            let dataSort = []
+            data.forEach(item => {
+               dataSort.push({...item})
+            })
+            let temp
+            for (let i = 1; i < dataSort.length; i++) {
+               for (let j = i; j > 0 && dataSort[j].tenggat_waktu < dataSort[j-1].tenggat_waktu; j--) {
+                  temp = dataSort[j]
+                  dataSort[j] = dataSort[j-1]
+                  dataSort[j-1] = temp
+               }
+            }
+            localStorage.setItem('data', JSON.stringify(dataSort))
+            renderTable()
+         })
 
+         $('#sortById').on('click', function(e) {
+            e.preventDefault()
+            let data = JSON.parse(localStorage.getItem('data'))
+            let dataSort = []
+            data.forEach(item => {
+               dataSort.push({...item})
+            })
+            let temp
+            for (let i = 1; i < dataSort.length; i++) {
+               for (let j = i; j > 0 && dataSort[j].id < dataSort[j-1].id; j--) {
+                  temp = dataSort[j]
+                  dataSort[j] = dataSort[j-1]
+                  dataSort[j-1] = temp
+               }
+            }
+            localStorage.setItem('data', JSON.stringify(dataSort))
+            renderTable()
+         })
 
-         // Function to sort an array using insertion sort
-         function insertionSort(arr, n) 
-         { 
-            let i, key, j; 
-            for (i = 1; i < n; i++)
-            { 
-               key = arr[i]; 
-               j = i - 1; 
-            
-               /* Move elements of arr[0..i-1], that are 
-               greater than key, to one position ahead 
-               of their current position */
-               while (j >= 0 && arr[j] > key)
-               { 
-                     arr[j + 1] = arr[j]; 
-                     j = j - 1; 
-                     console.log(j)
-               } 
-               arr[j + 1] = key; 
-            } 
-         } 
-            
-         // A utility function to print an array of size n 
-         function printArray(arr, n) 
-         { 
-            let i; 
-            for (i = 0; i < n; i++) 
-               document.write(arr[i] + " "); 
-            document.write("<br>");
-         } 
-            
-         // Driver code
-            let arr = [12, 11, 13, 5, 6 ]; 
-            let n = arr.length; 
-            
-            insertionSort(arr, n); 
-            printArray(arr, n); 
-
-            function insertionSort(arr) 
-         { 
-            let key, j; 
-            for (let i = 1; i < arr.length; i++)
-            { 
-               key = arr[i]; 
-               j = i - 1; 
-            
-               /* Move elements of arr[0..i-1], that are 
-               greater than key, to one position ahead 
-               of their current position */
-               while (j >= 0 && arr[j] > key)
-               { 
-                     arr[j + 1] = arr[j];
-                     j = j - 1; 
-               } 
-               arr[j + 1] = key; 
-            } 
-         } 
       </script>
    </x-slot>
 </x-app>

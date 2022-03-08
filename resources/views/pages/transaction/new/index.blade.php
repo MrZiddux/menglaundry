@@ -294,7 +294,7 @@
          $('#biaya_tambahan').on('input', function () {
             calculateTotal()
          })
-         
+
          $(document).on('click', '.selectPackage', function() {
             let id = $(this).data('id')
             let data = dataPaket.find(item => item.id == id)
