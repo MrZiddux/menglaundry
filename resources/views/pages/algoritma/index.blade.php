@@ -41,25 +41,27 @@
                   <h4>List Data</h4>
                   <div class="card-header-form">
                      <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Search">
+                        <input type="search" class="form-control" id="search" placeholder="Type here...">
                         <div class="input-group-btn">
-                           <button type="button" class="btn btn-primary btn-icon" data-toggle="modal" data-target="#packageModal"><i class="fas fa-search"></i> Find Package</button>
+                           <button type="button" class="btn btn-primary btn-icon"><i class="fas fa-search"></i>&nbsp;Search</button>
                         </div>
                      </div>
                   </div>
-                  <button id="sortByDate" class="btn btn-sm btn-icon icon-left btn-primary ml-2"><i class="fas fa-sort"></i>Sort Date</button>
                </div>
                <div class="card-body p-0">
                   <div class="table-responsive">
                      <table class="table table-striped table-md" id="tableTodolist">
                         <tr class="header">
                            <th>No</th>
-                           <th class="d-flex justify-content-between">
+                           <th>
                               Id
-                              <a href="javascript;" id="sortById"><i class="fas fa-sort"></i>&nbsp;Sort Id</a>
+                              <a href="javascript;" id="sortById" class="text-primary text-decoration-none ml-1"><i class="fas fa-sort"></i></a>
                            </th>
                            <th>Kegiatan</th>
-                           <th>Tenggat Waktu</th>
+                           <th>
+                              Tenggat Waktu
+                              <a href="javascript;" id="sortByDate" class="text-primary text-decoration-none ml-1"><i class="fas fa-sort"></i></a>
+                           </th>
                            <th>&nbsp;</th>
                         </tr>
                      </table>
@@ -73,19 +75,16 @@
       <script>
          const checkDataForBtn = () => {
             if (JSON.parse(localStorage.getItem('data')).length === 0) {
-               $('#sortById').attr('disabled', true)
-               $('#sortByDate').attr('disabled', true)
-               $('#sortById').removeClass('btn-primary')
-               $('#sortById').addClass('btn-secondary')
-               $('#sortByDate').removeClass('btn-primary')
-               $('#sortByDate').addClass('btn-secondary')
+               $('#sortById').removeClass('text-primary')
+               $('#sortById').addClass('text-secondary')
+               $('#sortByDate').removeClass('text-primary')
+               $('#sortByDate').addClass('text-secondary')
+               return false
             } else {
-               $('#sortById').removeAttr('disabled')
-               $('#sortByDate').removeAttr('disabled')
-               $('#sortById').removeClass('btn-secondary')
-               $('#sortById').addClass('btn-primary')
-               $('#sortByDate').removeClass('btn-secondary')
-               $('#sortByDate').addClass('btn-primary')
+               $('#sortById').removeClass('text-secondary')
+               $('#sortById').addClass('text-primary')
+               $('#sortByDate').removeClass('text-secondary')
+               $('#sortByDate').addClass('text-primary')
             }
          }
 
@@ -197,6 +196,21 @@
                }
             }
             localStorage.setItem('data', JSON.stringify(dataSort))
+            renderTable()
+         })
+
+         // make function to search data by kegiatan, id or date when click button search
+         $('#search').on('keyup', function() {
+            let data = JSON.parse(localStorage.getItem('data'))
+            let dataSearch = []
+            data.forEach(item => {
+               dataSearch.push({...item})
+            })
+            let search = $(this).val()
+            let dataSearchResult = dataSearch.filter(item => {
+               return item.kegiatan.toLowerCase().includes(search.toLowerCase()) || item.id.toLowerCase().includes(search.toLowerCase()) || item.tenggat_waktu.toLowerCase().includes(search.toLowerCase())
+            })
+            localStorage.setItem('data', JSON.stringify(dataSearchResult))
             renderTable()
          })
 
