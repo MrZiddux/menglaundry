@@ -10,4 +10,9 @@ class Outlet extends Model
     use HasFactory;
     protected $table = 'tb_outlet';
     protected $fillable = ['nama', 'tlp', 'alamat'];
+
+    public function transaksi()
+    {
+        return $this->hasMany(Transaksi::class, 'id_outlet');
+    }
 }

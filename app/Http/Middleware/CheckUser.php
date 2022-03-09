@@ -17,9 +17,9 @@ class CheckUser
     */
    public function handle(Request $request, Closure $next, ...$roles)
    {
-      if (in_array(Auth::user()->role, $roles)) {
-         return $next($request);
+      if (!in_array(Auth::user()->role, $roles)) {
+         return back()->with('error', 'You are not authorized to access that page');
       }
-      return back()->with('error', 'You are not authorized to access this page');
+      return $next($request);
    }
 }

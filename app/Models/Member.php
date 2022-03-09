@@ -10,4 +10,9 @@ class Member extends Model
     use HasFactory;
     protected $table = 'tb_member';
     protected $fillable = ['nama', 'jenis_kelamin', 'alamat', 'tlp'];
+
+    public function transaksi()
+    {
+        return $this->hasMany(Transaksi::class, 'id_member');
+    }
 }

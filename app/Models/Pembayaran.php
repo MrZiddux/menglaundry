@@ -18,4 +18,14 @@ class Pembayaran extends Model
         'biaya_tambahan',
         'kembalian',
     ];
+
+    public function transaksi()
+    {
+        return $this->belongsTo(Transaksi::class, 'id_transaksi');
+    }
+
+    public function detail_pembayan()
+    {
+        return $this->hasMany(DetailPembayaran::class, 'id_pembayaran');
+    }
 }

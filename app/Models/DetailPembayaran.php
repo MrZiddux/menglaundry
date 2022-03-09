@@ -13,4 +13,9 @@ class DetailPembayaran extends Model
         'id_pembayaran',
         'uang_dibayar',
     ];
+
+    public function pembayaran()
+    {
+        return $this->belongsTo(Pembayaran::class, 'id_pembayaran');
+    }
 }

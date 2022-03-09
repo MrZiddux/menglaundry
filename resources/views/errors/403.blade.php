@@ -17,7 +17,9 @@
          <div class="page-inner">
          <h1>403</h1>
          <div class="page-description">
-            You do not have access to this page.
+            {{-- @if (session('error'))
+               {{ session('error') }}
+            @endif --}}
          </div>
          <div class="page-search">
             <form>

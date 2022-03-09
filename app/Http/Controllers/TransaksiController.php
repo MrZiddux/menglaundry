@@ -67,4 +67,9 @@ class TransaksiController extends Controller
          'uang_dibayar' => $r->uang_dibayar,
       ]);
    }
+
+   public function showTransactions()
+   {
+      $data = Transaksi::with(['outlet', 'pembayaran', 'detail_transaksi'])->get();
+   }
 }

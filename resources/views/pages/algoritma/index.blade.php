@@ -111,15 +111,15 @@
                $('#kegiatan').removeClass('is-invalid')
                dataAll.push(obj)
                localStorage.setItem('data', JSON.stringify(dataAll))
-               renderTable()
+               renderTable('data')
                checkDataForBtn()
                resetForm()
             }
          })
 
-         const renderTable = () => {
+         const renderTable = (str) => {
             let data = ''
-            let dataLocalStorage = JSON.parse(localStorage.getItem('data'))
+            let dataLocalStorage = JSON.parse(localStorage.getItem(str))
             dataLocalStorage.map((item, index) => {
                return data +=  `
                   <tr class="item">
@@ -127,7 +127,7 @@
                      <td>${item.id}</td>
                      <td>${item.kegiatan}</td>
                      <td>${item.tenggat_waktu}</td>
-                     <td><button data-index="${index+1}" class="btn btn-sm btn-danger">Remove</button></td>
+                     <td><button data-index="${index+1}" class="btn btn-sm btn-danger btnHapus">Remove</button></td>
                   </tr>`
             })
             $('.item').remove()
@@ -136,7 +136,7 @@
 
          $(window).on('load', function () {
             checkDataForBtn()
-            renderTable()
+            renderTable('data')
             let data = JSON.parse(localStorage.getItem('data'))
 
             // CARA PENDEK
@@ -153,12 +153,12 @@
                // })
          })
 
-         $('#tableTodolist').on('click', '.btn-danger', function() {
+         $('#tableTodolist').on('click', '.btnHapus', function() {
             let index = $(this).data('index')
             dataAll.splice(index-1, 1)
             localStorage.setItem('data', JSON.stringify(dataAll))
             checkDataForBtn()
-            renderTable()
+            renderTable('data')
          })
 
          $('#sortByDate').on('click', function(e) {
@@ -177,7 +177,7 @@
                }
             }
             localStorage.setItem('data', JSON.stringify(dataSort))
-            renderTable()
+            renderTable('data')
          })
 
          $('#sortById').on('click', function(e) {
@@ -196,7 +196,7 @@
                }
             }
             localStorage.setItem('data', JSON.stringify(dataSort))
-            renderTable()
+            renderTable('data')
          })
 
          // make function to search data by kegiatan, id or date when click button search
@@ -210,8 +210,8 @@
             let dataSearchResult = dataSearch.filter(item => {
                return item.kegiatan.toLowerCase().includes(search.toLowerCase()) || item.id.toLowerCase().includes(search.toLowerCase()) || item.tenggat_waktu.toLowerCase().includes(search.toLowerCase())
             })
-            localStorage.setItem('data', JSON.stringify(dataSearchResult))
-            renderTable()
+            localStorage.setItem('dataSearch', JSON.stringify(dataSearchResult))
+            renderTable('dataSearch')
          })
 
       </script>
