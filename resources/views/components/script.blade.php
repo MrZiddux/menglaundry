@@ -13,6 +13,7 @@
 <script src="/assets/js/owl.carousel/owl.carousel.min.js"></script>
 <script src="/assets/js/summernote/summernote-bs4.js"></script>
 <script src="/assets/js/chocolat/jquery.chocolat.min.js"></script>
+<script src="/assets/js/sweetalert2/sweetalert2.all.min.js"></script>
 
 <!-- Template JS File -->
 <script src="/assets/js/scripts.js"></script>

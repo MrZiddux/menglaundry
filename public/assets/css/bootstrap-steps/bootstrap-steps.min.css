@@ -1,0 +1,93 @@
+.steps {
+   padding: 0;
+   margin: 0;
+   list-style: none;
+   display: flex;
+   overflow-x: auto;
+}
+.steps .step:first-child {
+   margin-left: auto;
+}
+.steps .step:last-child {
+   margin-right: auto;
+}
+.step:first-of-type .step-circle::before {
+   display: none;
+}
+.step:last-of-type .step-content {
+   padding-right: 0;
+}
+.step-content {
+   box-sizing: content-box;
+   display: flex;
+   align-items: center;
+   flex-direction: column;
+   width: 5rem;
+   min-width: 5rem;
+   max-width: 5rem;
+   padding-top: 0.5rem;
+   padding-right: 1rem;
+}
+.step-circle {
+   position: relative;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   width: 2.5rem;
+   height: 2.5rem;
+   color: #cdd3d8;
+   border: 2.5px solid #cdd3d8;
+   border-radius: 100%;
+   background-color: #fff;
+}
+.step-circle::before {
+   content: "";
+   display: block;
+   position: absolute;
+   top: 50%;
+   left: -2px;
+   width: calc(5rem + 1rem - 2.45rem);
+   height: 2.5px;
+   transform: translate(-100%, -50%);
+   color: #cdd3d8;
+   background-color: currentColor;
+}
+.step-text {
+   color: #cdd3d8;
+   word-break: break-all;
+   margin-top: 0.25em;
+}
+.step-active .step-circle {
+   color: #fff;
+   background-color: #6777ef;
+   border-color: #6777ef;
+}
+.step-active .step-circle::before {
+   color: #6777ef;
+}
+.step-active .step-text {
+   color: #6777ef;
+}
+.step-error .step-circle {
+   color: #fff;
+   background-color: #fc544b;
+   border-color: #fc544b;
+}
+.step-error .step-circle::before {
+   color: #fc544b;
+}
+.step-error .step-text {
+   color: #fc544b;
+}
+.step-success .step-circle {
+   color: #47c363;
+   background-color: #fff;
+   border-color: #47c363;
+}
+.step-success .step-circle::before {
+   color: #47c363;
+}
+.step-success .step-text {
+   color: #47c363;
+}
+/*# sourceMappingURL=bootstrap-steps.min.css.map */

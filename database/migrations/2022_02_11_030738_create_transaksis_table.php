@@ -22,7 +22,7 @@ return new class extends Migration
             $table->dateTime('batas_waktu');
             $table->dateTime('tgl_bayar')->nullable();
             $table->enum('status', ['baru', 'proses', 'selesai', 'diambil']);
-            $table->enum('pelunasan', ['lunas', 'belum_lunas']);
+            $table->enum('pelunasan', ['sudah_lunas', 'belum_lunas']);
             $table->unsignedBigInteger('id_user');
             $table->timestamps();
 

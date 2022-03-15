@@ -8,7 +8,7 @@
       </div>
    </div>
    <div class="section-body">
-      <form method="POST" action="{{ route('transaction.store') }}">
+      <form id="transactionForm">
       @csrf
       <div class="row">
          <div class="col-12 col-xl-9 order-1">
@@ -151,6 +151,21 @@
             return str.replace(/\w\S*/g, function (txt) {
                return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
             });
+         }
+
+         const clearTable = () => {
+            $('#tableCart tr:not(:first)').remove();
+         }
+
+         // make const function to clear input
+         const clearInput = () => {
+            $('#inputNamaMember').val('');
+            $('#inputTlpMember').val('');
+            $('#inputTotalHarga').val('');
+            $('#inputDiskon').val('');
+            $('#inputPajak').val('');
+            $('#inputBiayaTambahan').val('');
+            $('#inputUangDibayar').val('');
          }
 
          let dataPaket = []
@@ -362,6 +377,34 @@
                $('#uang_dibayar').attr('readonly', false)
             }
             calculateTotal()
+         })
+
+         $('#btnSimpan').on('click', function(e) {
+            e.preventDefault()
+            let transactionForm = new FormData(document.getElementById('transactionForm'))
+            $.ajax({
+               url: "{{ route('transaction.store') }}",
+               type: "POST",
+               processData: false,
+               contentType: false,
+               data: transactionForm,
+               success: function(response) {
+                  let kembalian = parseInt($('#uang_dibayar').val()) - parseInt($('#inputTotalHarga').val())
+                  Swal.fire({
+                     title: 'Kembalian',
+                     text: `Rp. ${ formatNumber(kembalian) }`,
+                     icon: 'success',
+                     confirmButtonColor: '#6777ef',
+                     confirmButtonText: 'Close',
+                  }).then(result => {
+                     if (result.isConfirmed) {
+                        clearTable()
+                        $('#transactionForm')[0].reset()
+                        $('#totalHarga').text('0');
+                     }
+                  })
+               }               
+            })
          })
       </script>
    </x-slot>

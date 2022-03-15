@@ -37,7 +37,9 @@
                   item.nama,
                   item.tlp,
                   new gridjs.html(
-                     item.jenis_kelamin == 'L' ? `<span class="badge badge-sm bg-info text-white">L</span>` : `<span class="badge badge-sm bg-danger text-white">P</span>`
+                     item.jenis_kelamin == 'L' ?
+                     `<span class="badge badge-sm bg-info text-white">L</span>` :
+                     `<span class="badge badge-sm bg-danger text-white">P</span>`
                   ),
                   item.alamat,
                   new gridjs.html(

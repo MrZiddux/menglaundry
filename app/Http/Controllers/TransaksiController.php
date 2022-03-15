@@ -36,7 +36,7 @@ class TransaksiController extends Controller
          'batas_waktu' => $r->batas_waktu,
          'tgl_bayar' => ($r->uang_dibayar != 0 ? date('Y-m-d H:i:s') : null),
          'status' => 'baru',
-         'pelunasan' => ($r->uang_dibayar != $r->total_harga ? 'belum_lunas' : 'lunas'),
+         'pelunasan' => $r->uang_dibayar >= $r->total_harga ? 'sudah_lunas' : 'belum_lunas',
          'id_user' => auth()->user()->id,
       ]);
 
@@ -66,10 +66,16 @@ class TransaksiController extends Controller
          'id_pembayaran' => $pembayaran->id,
          'uang_dibayar' => $r->uang_dibayar,
       ]);
+
+      return response()->json(array('success' => true));
    }
 
    public function showTransactions()
    {
-      $data = Transaksi::with(['outlet', 'pembayaran', 'detail_transaksi'])->get();
+      $data = Transaksi::with(['outlet', 'pembayaran', 'detail_transaksi' => function ($q) {
+         $q->with('paket');
+      }, 'member', 'user'])->get();
+
+      return response()->json($data);
    }
 }

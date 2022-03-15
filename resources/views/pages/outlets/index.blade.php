@@ -25,7 +25,8 @@
          server: {
             method: 'GET',
             url: '/outlets/getData',
-            then: data=>data.map(item =>[
+            then: data=>data.map((item, index) =>[
+               index+1,
                item.nama,
                item.tlp,
                item.alamat,
@@ -36,6 +37,9 @@
             ]),
          },
          columns: [
+            {
+               name: 'No',
+            },
             {
                name: 'Name',
             },
@@ -66,10 +70,10 @@
       $(function () {
          $('#wrapperTable').on('click', '.btnEdit', function() {
             let row = $(this).closest('tr')
-            let id = row.find('td:eq(3) .btnEdit').data('id')
-            let nama = row.find('td:eq(3) .btnEdit').data('nama')
-            let tlp = row.find('td:eq(3) .btnEdit').data('tlp')
-            let alamat = row.find('td:eq(3) .btnEdit').data('alamat')
+            let id = row.find('td:eq(4) .btnEdit').data('id')
+            let nama = row.find('td:eq(4) .btnEdit').data('nama')
+            let tlp = row.find('td:eq(4) .btnEdit').data('tlp')
+            let alamat = row.find('td:eq(4) .btnEdit').data('alamat')
 
             $('#editModal #id').val(id);
             $('#editModal #nama').val(nama);
@@ -79,8 +83,8 @@
 
          $('#wrapperTable').on('click', '.btnHapus', function() {
             let row = $(this).closest('tr')
-            let id = row.find('td:eq(3) .btnHapus').data('id')
-            let nama = row.find('td:eq(3) .btnHapus').data('nama')
+            let id = row.find('td:eq(4) .btnHapus').data('id')
+            let nama = row.find('td:eq(4) .btnHapus').data('nama')
             $('#hapusModal #id2').val(id)
             $('#hapusModal #namaOutlet').text(nama)
          })

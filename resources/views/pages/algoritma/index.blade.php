@@ -135,8 +135,8 @@
          }
 
          $(window).on('load', function () {
-            checkDataForBtn()
             renderTable('data')
+            checkDataForBtn()
             let data = JSON.parse(localStorage.getItem('data'))
 
             // CARA PENDEK
@@ -212,6 +212,7 @@
             })
             localStorage.setItem('dataSearch', JSON.stringify(dataSearchResult))
             renderTable('dataSearch')
+            checkDataForBtn()
          })
 
       </script>
