@@ -4,6 +4,11 @@
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 <link href="https://cdn.jsdelivr.net/npm/gridjs/dist/theme/mermaid.min.css" rel="stylesheet" />
 
+{{-- <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+<link rel="stylesheet" href="/assets/css/bootstrap-steps/bootstrap-steps.min.css">
+<link rel="stylesheet" href="/assets/css/all.css">
+<link rel="stylesheet" href="/assets/css/mermaid.min.css"> --}}
+
 <!-- CSS Libraries -->
 <link rel="stylesheet" href="/assets/css/jqvmap/jqvmap.min.css">
 <link rel="stylesheet" href="/assets/css/summernote/summernote-bs4.css">

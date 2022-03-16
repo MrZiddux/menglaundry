@@ -42,6 +42,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
    Route::view('transaction/manage', 'pages.transaction.manage.index');
 
    Route::get('algoritma', [AlgoritmaController::class, 'view']);
+   Route::view('simulasi', 'pages.simulasi.index');
 
    Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 });

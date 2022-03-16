@@ -5,6 +5,13 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.7.6/jquery.nicescroll.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gridjs/dist/gridjs.umd.js"></script>
+{{-- <script src="/assets/js/jquery/jquery-3.3.1.min.js"></script>
+<script src="/assets/js/popper/popper.min.js"></script>
+<script src="/assets/js/bootstrap.min.js"></script>
+<script src="/assets/js/jquery/jquery.nicescroll.min.js"></script>
+<script src="/assets/js/moment/moment.min.js"></script>
+<script src="/assets/js/gridjs/gridjs.umd.js"></script> --}}
+
 <script src="/assets/js/stisla.js"></script>
 
 <!-- JS Libraies -->
