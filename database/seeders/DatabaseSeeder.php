@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Kurir;
 use App\Models\Member;
 use App\Models\Outlet;
 use App\Models\Paket;
@@ -21,6 +22,7 @@ class DatabaseSeeder extends Seeder
       // \App\Models\User::factory(10)->create();
       Outlet::factory(100)->create();
       Member::factory(100)->create();
+      Kurir::factory(100)->create();
       Paket::factory(100)->create();
       User::factory(1)->create();
    }

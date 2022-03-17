@@ -123,6 +123,7 @@
             let status = $(this).val()
             if (status == 'single') {
                $('#inputJmlAnak').attr('readonly', true)
+               $('#inputJmlAnak').val(0)
             } else if (status == 'married') {
                $('#inputJmlAnak').attr('readonly', false)
             }

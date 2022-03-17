@@ -48,4 +48,9 @@ class Transaksi extends Model
     {
         return $this->belongsTo(User::class, 'id_user');
     }
+
+    public function penjemputan_laundry()
+    {
+        return $this->hasOne(PenjemputanLaundry::class, 'id_transaksi');
+    }
 }
