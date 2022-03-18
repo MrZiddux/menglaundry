@@ -29,9 +29,10 @@
             server: {
                method: 'GET',
                url: '/transaction/penjemputan-laundry/showDataPenjemputan',
-               then: data=>data.map((item, index) =>[
+               then: data => data.map((item, index) => [
                   index+1,
                   item.transaksi.kode_invoice,
+                  item.kurir.nama,
                   item.transaksi.member.nama,
                   item.transaksi.member.alamat,
                   item.transaksi.member.tlp,
@@ -57,6 +58,9 @@
                   name: 'Kode Invoice',
                },
                {
+                  name: 'Kurir',
+               },
+               {
                   name: 'Nama Pengguna',
                },
                {
@@ -79,7 +83,6 @@
                th: 'text-dark',
                search: 'float-right',
             },
-            fixedHeader: true,
             sort: true,
             pagination: true,
             search: true,
@@ -242,7 +245,7 @@
             let transaksi = row.find('td:eq(6) .btnEdit').data('transaksi')
             let kurir = row.find('td:eq(6) .btnEdit').data('kurir')
             let status = row.find('td:eq(6) .btnEdit').data('status')
-            
+
             $('#id').val(id)
             $('#inputIdTransaksi2').val(transaksi)
             $('#inputIdKurir2').val(kurir)
@@ -257,49 +260,55 @@
             $('#kodeInvoice').text(kode_invoice)
          })
 
-         const getDataTransaction = async () => {
-            const response = await fetch('/transaction/penjemputan-laundry/getTransactionStatus');
-            const data = await response.json();
-            return data;
+         const getDataTransaction = () => {
+            $.ajax({
+               type: 'GET',
+               url: '/transaction/penjemputan-laundry/getTransactionStatus',
+               success: function(data) {
+                  const select = $('#inputIdTransaksi')
+                  const select2 = $('#inputIdTransaksi2')
+                  data.forEach(item => {
+                     const option = document.createElement('option')
+                     option.value = item.id
+                     option.innerHTML = item.kode_invoice
+                     select.append(option)
+                  })
+                  data.forEach(item => {
+                     const option = document.createElement('option')
+                     option.value = item.id
+                     option.innerHTML = item.kode_invoice
+                     select2.append(option)
+                  })
+               }
+            })
          }
 
-         const getDataKurir = async () => {
-            const response = await fetch('/transaction/penjemputan-laundry/getDataKurir');
-            const data = await response.json();
-            return data;
-         }
-
-         const loopingDataTransaction = async () => {
-            const data = await getDataTransaction();
-            const select = $('#inputIdTransaksi');
-            const select2 = $('#inputIdTransaksi2');
-            data.forEach(item => {
-               const option = document.createElement('option');
-               option.value = item.id;
-               option.innerHTML = item.kode_invoice;
-               // select.append(option);
-               select2.append(option);
-            });
-         }
-
-         // AWAIT PENGGANTI THEN
-
-         const loopingDataKurir = async () => {
-            const data = await getDataKurir();
-            const select = $('#inputKurir');
-            const select2 = $('#inputKurir2');
-            data.forEach(item => {
-               const option = document.createElement('option');
-               option.value = item.id;
-               option.innerHTML = item.nama;
-               // select.append(option);
-               select2.append(option);
-            });
+         const getDataKurir = () => {
+            $.ajax({
+               type: 'GET',
+               url: '/transaction/penjemputan-laundry/getDataKurir',
+               success: function(data) {
+                  const select = $('#inputKurir')
+                  const select2 = $('#inputKurir2')
+                  data.forEach(item => {
+                     const option = document.createElement('option')
+                     option.value = item.id
+                     option.innerHTML = item.nama
+                     select.append(option)
+                  })
+                  data.forEach(item => {
+                     const option = document.createElement('option')
+                     option.value = item.id
+                     option.innerHTML = item.nama
+                     select2.append(option)
+                  })
+               }
+            })
          }
 
          $(window).on('load', async () => {
-            loopingDataTransaction();
-            loopingDataKurir();
+            getDataTransaction()
+            getDataKurir();
          });
       </script>
    </x-slot>

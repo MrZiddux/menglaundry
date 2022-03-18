@@ -18,7 +18,7 @@
                      <div class="form-group">
                         <label for="id">ID Karyawan</label>
                         <input type="text" class="form-control form-control-sm" name="id">
-                     </div>                  
+                     </div>
                   </div>
                   <div class="col-6">
                      <div class="form-group">
@@ -53,13 +53,13 @@
                      <div class="form-group">
                         <label for="jumlah_anak">Jumlah Anak</label>
                         <input type="number" class="form-control form-control-sm" name="jumlah_anak" id="inputJmlAnak" value="0" readonly>
-                     </div>                  
+                     </div>
                   </div>
                   <div class="col-6">
                      <div class="form-group">
                         <label for="mulai_bekerja">Mulai Bekerja</label>
                         <input type="date" class="form-control form-control-sm" name="mulai_bekerja">
-                     </div>                  
+                     </div>
                   </div>
                </div>
             </div>
@@ -109,7 +109,6 @@
                         Total Gaji
                         <a href="javascript;" id="sortByTotalGaji" class="text-primary text-decoration-none ml-1"><i class="fas fa-sort"></i></a>
                      </th>
-                     <th>&nbsp;</th>
                   </tr>
                </table>
             </div>
@@ -118,7 +117,11 @@
    </div>
 
    <x-slot name="script">
-      <script>         
+      <script>
+         const formatNumber = (number) => {
+            return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+         }
+
          $('#inputStatus').on('change', function () {
             let status = $(this).val()
             if (status == 'single') {
@@ -155,7 +158,7 @@
                }
                return tunjangan
             } else if(data.status == 'single') {
-               tunjangan += calculateAge(data.mulai_bekerja) * tunjanganMasaKerja  
+               tunjangan += calculateAge(data.mulai_bekerja) * tunjanganMasaKerja
                return tunjangan
             }
          }
@@ -173,26 +176,24 @@
                grandTotalGaji += parseInt(item.total_gaji)
                data += `
                   <tr class="item">
-                     <td>${item.id}</td>   
-                     <td>${item.nama}</td>   
-                     <td>${item.jenis_kelamin}</td>   
-                     <td>${item.status}</td>   
-                     <td>${item.jumlah_anak}</td>   
-                     <td>${item.mulai_bekerja}</td>   
-                     <td>${item.gaji_karyawan}</td>   
-                     <td>${item.tunjangan}</td>   
-                     <td>${item.total_gaji}</td>   
-                     <td></td>   
+                     <td>${item.id}</td>
+                     <td>${item.nama}</td>
+                     <td>${item.jenis_kelamin}</td>
+                     <td>${item.status}</td>
+                     <td>${item.jumlah_anak}</td>
+                     <td>${item.mulai_bekerja}</td>
+                     <td>Rp. ${formatNumber(item.gaji_karyawan)}</td>
+                     <td>Rp. ${formatNumber(item.tunjangan)}</td>
+                     <td>Rp. ${formatNumber(item.total_gaji)}</td>
                   </tr>
                `
             })
             data += `
                <tr class="text-white bg-primary item">
                   <td colspan="5"><b>Total</b><td>
-                  <td><b>${totalGajiKaryawan}</b></td>
-                  <td><b>${totalTunjangan}</b></td>
-                  <td><b>${grandTotalGaji}</b></td>
-                  <td><b></b></td>
+                  <td><b>Rp. ${formatNumber(totalGajiKaryawan)}</b></td>
+                  <td><b>Rp. ${formatNumber(totalTunjangan)}</b></td>
+                  <td><b>Rp. ${formatNumber(grandTotalGaji)}</b></td>
                </td>
             `
 

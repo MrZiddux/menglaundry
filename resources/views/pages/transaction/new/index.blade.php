@@ -166,6 +166,9 @@
             $('#inputPajak').val('');
             $('#inputBiayaTambahan').val('');
             $('#inputUangDibayar').val('');
+            $('#diskon').attr('readonly', true)
+            $('#biaya_tambahan').attr('readonly', true)
+            $('#uang_dibayar').attr('readonly', true)
          }
 
          let dataPaket = []
@@ -400,10 +403,13 @@
                      if (result.isConfirmed) {
                         clearTable()
                         $('#transactionForm')[0].reset()
+                        $('#diskon').attr('readonly', true)
+                        $('#biaya_tambahan').attr('readonly', true)
+                        $('#uang_dibayar').attr('readonly', true)
                         $('#totalHarga').text('0');
                      }
                   })
-               }               
+               }
             })
          })
       </script>
