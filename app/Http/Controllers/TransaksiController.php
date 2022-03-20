@@ -78,4 +78,13 @@ class TransaksiController extends Controller
 
       return response()->json($data);
    }
+
+   public function updateStatus(Request $r)
+   {
+      $transaksi = Transaksi::find($r->id);
+      $transaksi->status = $r->status;
+      $transaksi->save();
+
+      return response()->json(array('success' => true));
+   }
 }

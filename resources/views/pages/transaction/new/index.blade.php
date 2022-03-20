@@ -10,8 +10,8 @@
    <div class="section-body">
       <form id="transactionForm">
       @csrf
-      <div class="row">
-         <div class="col-12 col-xl-9 order-1">
+      <div class="row justify-content-center">
+         <div class="col-12 col-lg-9 order-1">
             <div class="card">
                <div class="card-header">
                   <h4>Data Transaksi</h4>
@@ -63,7 +63,7 @@
                </div>
             </div>
          </div>
-         <div class="col-3 order-3 order-xl-2">
+         <div class="col-12 col-lg-3 col-md-8 order-3 order-lg-2">
             <div class="card">
                <div class="card-header">
                   <h4>Payment</h4>
@@ -98,7 +98,7 @@
                </div>
             </div>
          </div>
-         <div class="col-12 order-2 order-xl-3">
+         <div class="col-12 order-2 order-lg-3">
             <div class="card">
                <div class="card-header">
                   <h4>List Item</h4>

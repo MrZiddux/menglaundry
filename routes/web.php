@@ -45,9 +45,9 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
    Route::view('transactions', 'pages.transaction.index');
    Route::get('transactions/getData', [TransaksiController::class, 'showTransactions'])->name('transactions.getData');
+   Route::post('transactions/updateStatus', [TransaksiController::class, 'updateStatus']);
    Route::get('transaction/new', [TransaksiController::class, 'showNewTransaction'])->name('transaction.new');
    Route::post('transaction/new/store', [TransaksiController::class, 'store'])->name('transaction.store');
-   Route::view('transaction/manage', 'pages.transaction.manage.index');
 
    Route::view('transaction/penjemputan-laundry', 'pages.penjemputan.index');
    Route::get('transaction/penjemputan-laundry/showDataPenjemputan', [PenjemputanLaundryController::class, 'showPenjemputanLaundry']);

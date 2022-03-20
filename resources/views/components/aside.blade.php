@@ -9,18 +9,28 @@
         <ul class="sidebar-menu">
             <li class="menu-header">Dashboard</li>
             <li class="{{ request()->is('/') ? 'active' : '' }}"><a href="/" class="nav-link"><i class="fas fa-fire"></i><span>Dashboard</span></a></li>
-            <li class="menu-header">CRUD</li>
-            <li class="{{ request()->is('outlets') ? 'active' : '' }}"><a href="/outlets" class="nav-link"><i class="fas fa-store"></i><span>Outlets</span></a></li>
-            <li class="{{ request()->is('members') ? 'active' : '' }}"><a href="/members" class="nav-link"><i class="fas fa-users"></i><span>Members</span></a></li>
-            <li class="{{ request()->is('packages') ? 'active' : '' }}"><a href="/packages" class="nav-link"><i class="fas fa-cube"></i><span>Packages</span></a></li>
-            <li class="{{ request()->is('kurir') ? 'active' : '' }}"><a href="/kurir" class="nav-link"><i class="fas fa-truck"></i><span>Kurir</span></a></li>
-            <li class="menu-header">Transaction</li>
-            <li class="{{ request()->is('transactions') ? 'active' : '' }}"><a href="/transactions" class="nav-link"><i class="fas fa-shopping-cart"></i><span>Transactions</span></a></li>
-            <li class="{{ request()->is('transaction/new') ? 'active' : '' }}"><a href="/transaction/new" class="nav-link"><i class="fas fa-cart-plus"></i><span>New Transaction</span></a></li>
-            <li class="{{ request()->is('transaction/manage') ? 'active' : '' }}"><a href="/transaction/manage" class="nav-link"><i class="fas fa-cart-arrow-down"></i><span>Manage Transaction</span></a></li>
-            <li class="{{ request()->is('transaction/penjemputan-laundry') ? 'active' : '' }}"><a href="/transaction/penjemputan-laundry" class="nav-link"><i class="fas fa-truck-loading"></i><span>Penjemputan Laundry</span></a></li>
+            <li class="nav-item dropdown {{ request()->is('outlets') || request()->is('members') || request()->is('packages') || request()->is('kurir') ? 'active' : '' }}">
+                <a href="#" class="nav-link has-dropdown"><i class="fas fa-database"></i><span>CRUD</span></a>
+                <ul class="dropdown-menu">
+                    <li class="{{ request()->is('outlets') ? 'active' : '' }}"><a href="/outlets" class="nav-link"><i class="fas fa-store"></i><span>Outlet</span></a></li>
+                    <li class="{{ request()->is('members') ? 'active' : '' }}"><a href="/members" class="nav-link"><i class="fas fa-users"></i><span>Member</span></a></li>
+                    <li class="{{ request()->is('packages') ? 'active' : '' }}"><a href="/packages" class="nav-link"><i class="fas fa-cube"></i><span>Paket</span></a></li>
+                    <li class="{{ request()->is('kurir') ? 'active' : '' }}"><a href="/kurir" class="nav-link"><i class="fas fa-truck"></i><span>Kurir</span></a></li>
+                </ul>
+            </li>
+            <li class="nav-item dropdown {{ request()->is('transaction/new') || request()->is('transactions') || request()->is('transaction/penjemputan-laundry') ? 'active' : '' }}">
+                <a href="#" class="nav-link has-dropdown"><i class="fas fa-shopping-cart"></i><span>Transaksi</span></a>
+                <ul class="dropdown-menu">
+                    <li class="{{ request()->is('transaction/new') ? 'active' : '' }}"><a href="/transaction/new" class="nav-link"><i class="fas fa-plus"></i><span>Tambah Transaksi</span></a></li>
+                    <li class="{{ request()->is('transactions') ? 'active' : '' }}"><a href="/transactions" class="nav-link"><i class="fas fa-edit"></i><span>Kelola Transaksi</span></a></li>
+                    <li class="{{ request()->is('transaction/penjemputan-laundry') ? 'active' : '' }}"><a href="/transaction/penjemputan-laundry" class="nav-link"><i class="fas fa-truck-loading"></i><span>Penjemputan</span></a></li>
+                </ul>
+            </li>
+            <li class="nav-item dropdown">
+                <a href="#" class="nav-link has-dropdown"><i class="fas fa-file"></i><span>Laporan</span></a>
+            </li>
             <li class="menu-header">Manage</li>
-            <li class="{{ request()->is('users') ? 'active' : '' }}"><a href="/users" class="nav-link"><i class="fas fa-user-circle"></i><span>Users</span></a></li>
+            <li class="{{ request()->is('users') ? 'active' : '' }}"><a href="/users" class="nav-link"><i class="fas fa-user-circle"></i><span>User</span></a></li>
             <li class="menu-header">Algoritm</li>
             <li class="{{ request()->is('algoritma') ? 'active' : '' }}"><a href="/algoritma" class="nav-link"><i class="fas fa-project-diagram"></i><span>Algoritma</span></a></li>
             <li class="{{ request()->is('simulasi') ? 'active' : '' }}"><a href="/simulasi" class="nav-link"><i class="fas fa-project-diagram"></i><span>Simulasi</span></a></li>

@@ -49,11 +49,16 @@
                         index+1,
                         item.tgl,
                         item.kode_invoice,
-                        new gridjs.html(
-                           item.status == 'baru' || item.status == 'proses' ?
-                           `<span class="badge badge-sm bg-info text-white">${capitalize(delunderscore(item.status))}</span>` :
-                           `<span class="badge badge-sm bg-success text-white">${capitalize(delunderscore(item.status))}</span>`
-                        ),
+                        new gridjs.html(`
+                           <div class="form-group">
+                              <select id="selectStatus" class="form-control" data-id="${item.id}">
+                                 <option value="baru" ${item.status == 'baru' ? 'selected' : ''}>Baru</option>
+                                 <option value="proses" ${item.status == 'proses' ? 'selected' : ''}>Proses</option>
+                                 <option value="selesai" ${item.status == 'selesai' ? 'selected' : ''}>Selesai</option>
+                                 <option value="diambil" ${item.status == 'diambil' ? 'selected' : ''}>Diambil</option>
+                              </select>   
+                           </div>
+                        `),
                         new gridjs.html(
                            item.pelunasan == 'belum_lunas' ?
                            `<span class="badge badge-sm bg-warning text-white">${capitalize(delunderscore(item.pelunasan))}</span>` :
@@ -103,7 +108,6 @@
             resizable: true,
          }).render(document.getElementById("wrapperTable"));
 
-         // make function to passing data to detailTable modal when click detail button by id
          $(document).on('click', '.btnDetail', function() {
             let id = $(this).data('id')
             let data = dataDetail.find(item => item.id == id)
@@ -160,6 +164,37 @@
             $('.item').remove()
             $(xml).insertAfter('#tableDetailTransaction #header')
          })
+
+         $(document).on('change', '#selectStatus', function() {
+            let id = $(this).data('id')
+            let status = $(this).val()
+            $.ajax({
+               url: '/transactions/updateStatus',
+               method: 'POST',
+               data: {
+                  _token: '{{ csrf_token() }}',
+                  id: id,
+                  status: status,
+               },
+               success: function(data) {
+                  if (data.success) {
+                     gridTransaction.forceRender()
+                  } else {
+                     $('#alertHere').html(`
+                        <div class="alert alert-success alert-dismissible alert-has-icon align-items-center show fade">
+                           <div class="alert-icon"><i class="fas fa-check"></i></div>
+                           <div class="alert-body">
+                              <button class="close" data-dismiss="alert">
+                                 <span>&times;</span>
+                              </button>
+                              Update Status Transaksi Failed.
+                           </div>
+                        </div>
+                     `)
+                  }
+               }
+            })
+         }) 
 
          $('#confirmationModalBtn').on('click', function(e) {
             e.preventDefault()

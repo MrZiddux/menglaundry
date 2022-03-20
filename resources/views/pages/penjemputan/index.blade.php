@@ -58,16 +58,16 @@
                   name: 'Kode Invoice',
                },
                {
-                  name: 'Kurir',
+                  name: 'Nama Kurir',
                },
                {
-                  name: 'Nama Pengguna',
+                  name: 'Nama Pelanggan',
                },
                {
-                  name: 'Alamat',
+                  name: 'Alamat Pelanggan',
                },
                {
-                  name: 'Telp',
+                  name: 'Telp Pelanggan',
                },
                {
                   name: 'Status',
