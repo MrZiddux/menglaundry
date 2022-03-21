@@ -35,12 +35,12 @@
                url: '/members/getData',
                then: data=>data.map(item =>[
                   item.nama,
-                  item.tlp,
                   new gridjs.html(
                      item.jenis_kelamin == 'L' ?
                      `<span class="badge badge-sm bg-info text-white">L</span>` :
                      `<span class="badge badge-sm bg-danger text-white">P</span>`
                   ),
+                  item.tlp,
                   item.alamat,
                   new gridjs.html(
                      `<button class='btn btn-icon btn-info btnEdit mr-1' data-toggle='modal' data-target='#editModal' data-id='${item.id}' data-nama='${item.nama}' data-tlp='${item.tlp}' data-alamat='${item.alamat}' data-jenis-kelamin='${item.jenis_kelamin}'><i class='fas fa-edit'></i></button>` +
@@ -53,11 +53,11 @@
                   name: 'Name',
                },
                {
-                  name: 'Phone Number',
-               },
-               {
                   name: 'Gender',
                   sort: false,
+               },
+               {
+                  name: 'Phone Number',
                },
                {
                   name: 'Address',

@@ -42,6 +42,10 @@
    </div>
    <x-slot name="script">
       <script>
+         const formatNumber = (number) => {
+            return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+         }
+
          $('#tanggalTransaksi').on('submit', function(e) {
             e.preventDefault();
             const form = new FormData(this)
@@ -53,6 +57,7 @@
                contentType: false,
                success: function(data) {
                   let html = ``
+                  let grandTotal = 0
                   html += `
                      <div class="card">
                         <div class="card-header">
@@ -78,19 +83,24 @@
                                  </tr>
                   `
 
-                  data.data.map(item => {
+                  data.data.map((item, index) => {
+                     grandTotal += parseInt(item.pembayaran.total_harga)
                      html += `
                         <tr>
-                           <td>1</td>
+                           <td>${index+1}</td>
                            <td>${item.tgl}</td>
                            <td>${item.kode_invoice}</td>
                            <td>${item.member.nama}</td>
-                           <td>${item.pembayaran.total_harga}</td>
+                           <td>${formatNumber(item.pembayaran.total_harga)}</td>
                         </tr>
                      `
                   })
 
                   html += `
+                                 <tr class="bg-primary text-white">
+                                    <th colspan="4">Grand Total</th>
+                                    <th>${formatNumber(grandTotal)}</th>
+                                 </tr>
                               </table>
                            </div>
                         </div>
