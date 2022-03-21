@@ -26,8 +26,12 @@
                     <li class="{{ request()->is('transaction/penjemputan-laundry') ? 'active' : '' }}"><a href="/transaction/penjemputan-laundry" class="nav-link"><i class="fas fa-truck-loading"></i><span>Penjemputan</span></a></li>
                 </ul>
             </li>
-            <li class="nav-item dropdown">
-                <a href="#" class="nav-link has-dropdown"><i class="fas fa-file"></i><span>Laporan</span></a>
+            <li class="nav-item dropdown {{ request()->is('laporan/transaksi') || request()->is('laporan/harian') ? 'active' : '' }}">
+                <a href="#" class="nav-link has-dropdown"><i class="fas fa-book"></i><span>Laporan</span></a>
+                <ul class="dropdown-menu">
+                    <li class="{{ request()->is('laporan/harian') ? 'active' : '' }}"><a href="/laporan/harian" class="nav-link"><i class="fas fa-calendar"></i><span>Laporan Harian</span></a></li>
+                    <li class="{{ request()->is('laporan/transaksi') ? 'active' : '' }}"><a href="/laporan/transaksi" class="nav-link"><i class="fas fa-money-bill"></i><span>Laporan Transaksi</span></a></li>
+                </ul>
             </li>
             <li class="menu-header">Manage</li>
             <li class="{{ request()->is('users') ? 'active' : '' }}"><a href="/users" class="nav-link"><i class="fas fa-user-circle"></i><span>User</span></a></li>

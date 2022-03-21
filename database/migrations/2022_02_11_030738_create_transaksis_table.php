@@ -18,9 +18,9 @@ return new class extends Migration
             $table->unsignedBigInteger('id_outlet');
             $table->string('kode_invoice', 100);
             $table->unsignedBigInteger('id_member');
-            $table->dateTime('tgl');
-            $table->dateTime('batas_waktu');
-            $table->dateTime('tgl_bayar')->nullable();
+            $table->date('tgl');
+            $table->date('batas_waktu');
+            $table->date('tgl_bayar')->nullable();
             $table->enum('status', ['baru', 'proses', 'selesai', 'diambil']);
             $table->enum('pelunasan', ['sudah_lunas', 'belum_lunas']);
             $table->unsignedBigInteger('id_user');

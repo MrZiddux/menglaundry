@@ -14,19 +14,19 @@
          <form id="formKaryawan">
             <div class="card-body">
                <div class="row">
-                  <div class="col-6">
+                  <div class="col-md-6">
                      <div class="form-group">
                         <label for="id">ID Karyawan</label>
                         <input type="text" class="form-control form-control-sm" name="id">
                      </div>
                   </div>
-                  <div class="col-6">
+                  <div class="col-md-6">
                      <div class="form-group">
                         <label for="nama">Nama Karyawan</label>
                         <input type="text" class="form-control form-control-sm" name="nama">
                      </div>
                   </div>
-                  <div class="col-6">
+                  <div class="col-md-6">
                      <div class="form-group">
                         <label class="d-block">Jenis Kelamin</label>
                         <div class="custom-control custom-radio custom-control-inline">
@@ -39,7 +39,7 @@
                         </div>
                      </div>
                   </div>
-                  <div class="col-6">
+                  <div class="col-md-6">
                      <div class="form-group">
                         <label>Status Menikah</label>
                         <select class="form-control form-control-sm" name="status" id="inputStatus">
@@ -49,13 +49,13 @@
                         </select>
                      </div>
                   </div>
-                  <div class="col-6">
+                  <div class="col-md-6">
                      <div class="form-group">
                         <label for="jumlah_anak">Jumlah Anak</label>
                         <input type="number" class="form-control form-control-sm" name="jumlah_anak" id="inputJmlAnak" value="0" readonly>
                      </div>
                   </div>
-                  <div class="col-6">
+                  <div class="col-md-6">
                      <div class="form-group">
                         <label for="mulai_bekerja">Mulai Bekerja</label>
                         <input type="date" class="form-control form-control-sm" name="mulai_bekerja">

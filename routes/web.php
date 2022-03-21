@@ -3,6 +3,8 @@
 use App\Http\Controllers\AlgoritmaController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\KurirController;
+use App\Http\Controllers\LaporanHarianController;
+use App\Http\Controllers\LaporanTransaksiController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\OutletController;
 use App\Http\Controllers\PaketController;
@@ -28,7 +30,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
    Route::post('kurir/store', [KurirController::class, 'store'])->name('kurir.store');
    Route::post('kurir/update', [KurirController::class, 'update'])->name('kurir.update');
    Route::post('kurir/destroy', [KurirController::class, 'destroy'])->name('kurir.destroy');
-   
+
    Route::get('outlets', [OutletController::class, 'index']);
    Route::get('outlets/getData', [OutletController::class, 'getData']);
    Route::post('outlets/store', [OutletController::class, 'store'])->name('outlets.store');
@@ -58,6 +60,11 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
    Route::post('transaction/penjemputan-laundry/update', [PenjemputanLaundryController::class, 'update'])->name('penjemputan-laundry.update');
    Route::post('transaction/penjemputan-laundry/destroy', [PenjemputanLaundryController::class, 'destroy'])->name('penjemputan-laundry.destroy');
    Route::get('transaction/penjemputan-laundry/export', [PenjemputanLaundryController::class, 'export'])->name('penjemputan-laundry.export');
+
+   Route::view('laporan/transaksi', 'pages.laporan.transaksi.index');
+   Route::post('laporan/transaksi/getLaporanTransaksi', [LaporanTransaksiController::class, 'getLaporanTransaksi']);
+   // Route::view('laporan/harian', 'pages.laporan.harian.index');
+   Route::get('laporan/harian', [LaporanHarianController::class, 'showLaporanHarian']);
 
    Route::get('algoritma', [AlgoritmaController::class, 'view']);
    Route::view('simulasi', 'pages.simulasi.index');
