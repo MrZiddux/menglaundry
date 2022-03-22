@@ -397,10 +397,17 @@
                      title: 'Kembalian',
                      text: `Rp. ${ formatNumber(kembalian) }`,
                      icon: 'success',
+                     showDenyButton: true,
+                     denyButtonColor: '#cdd3d8',
+                     denyButtonText: 'Tutup',
                      confirmButtonColor: '#6777ef',
-                     confirmButtonText: 'Close',
+                     confirmButtonText: 'Cetak Faktur',
                   }).then(result => {
                      if (result.isConfirmed) {
+                        $.ajax({
+                           
+                        })
+                     } else if (result.isDenied) {
                         clearTable()
                         $('#transactionForm')[0].reset()
                         $('#diskon').attr('readonly', true)

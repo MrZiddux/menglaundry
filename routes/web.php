@@ -66,6 +66,8 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
    // Route::view('laporan/harian', 'pages.laporan.harian.index');
    Route::get('laporan/harian', [LaporanHarianController::class, 'showLaporanHarian']);
 
+   Route::view('faktur', 'pages.faktur.index');
+
    Route::get('algoritma', [AlgoritmaController::class, 'view']);
    Route::view('simulasi', 'pages.simulasi.index');
 
