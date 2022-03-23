@@ -18,13 +18,15 @@ return new class extends Migration
         Schema::create('tb_user', function (Blueprint $table) {
             $table->id();
             $table->string('nama', 100);
+            $table->string('tlp', 30);
+            $table->text('alamat');
             $table->string('username', 30)->unique();
             // $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->unsignedBigInteger('id_outlet')->nullable();
             $table->enum('role', ['admin', 'kasir', 'owner']);
-            $table->boolean('rules_check');
+            $table->unsignedBigInteger('id_outlet')->nullable();
             $table->timestamps();
+
             $table->foreign('id_outlet')->references('id')->on('tb_outlet');
         });
     }

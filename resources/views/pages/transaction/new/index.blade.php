@@ -404,9 +404,8 @@
                      confirmButtonText: 'Cetak Faktur',
                   }).then(result => {
                      if (result.isConfirmed) {
-                        $.ajax({
-                           
-                        })
+                        let fakturPage = `/faktur/${ response.invCode }`
+                        window.location.replace(fakturPage)
                      } else if (result.isDenied) {
                         clearTable()
                         $('#transactionForm')[0].reset()

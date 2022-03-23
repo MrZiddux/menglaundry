@@ -20,11 +20,12 @@ class UserFactory extends Factory
       return [
          'nama' => 'Admin',
          'username' => "zilaundry.id",
+         'tlp' => "085788889999",
+         'alamat' => "Jln. KH Abdullah bin Nuh",
          // 'email_verified_at' => now(),
          'password' => bcrypt('123123'),
          'id_outlet' => 1,
          'role' => 'admin',
-         'rules_check' => true,
          // 'remember_token' => Str::random(10),
       ];
    }

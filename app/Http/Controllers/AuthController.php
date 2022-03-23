@@ -12,7 +12,7 @@ class AuthController extends Controller
    {
       if (Auth::attempt($r->only('username', 'password'))) {
          $r->session()->regenerate();
-         return redirect('/');
+         return redirect('/')->with('success', 'You are now logged in');
       }
 
       throw ValidationException::withMessages([

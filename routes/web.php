@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AlgoritmaController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\FakturController;
 use App\Http\Controllers\KurirController;
 use App\Http\Controllers\LaporanHarianController;
 use App\Http\Controllers\LaporanTransaksiController;
@@ -66,7 +67,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
    // Route::view('laporan/harian', 'pages.laporan.harian.index');
    Route::get('laporan/harian', [LaporanHarianController::class, 'showLaporanHarian']);
 
-   Route::view('faktur', 'pages.faktur.index');
+   Route::get('faktur/{inv}', FakturController::class)->name('faktur');
 
    Route::get('algoritma', [AlgoritmaController::class, 'view']);
    Route::view('simulasi', 'pages.simulasi.index');

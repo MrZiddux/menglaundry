@@ -27,7 +27,6 @@ class TransaksiController extends Controller
 
    public function store(Request $r)
    {
-      // dd($r);
       $transaksi = Transaksi::create([
          'id_outlet' => auth()->user()->id_outlet,
          'kode_invoice' => $this->generateKodeInvoice(),
@@ -67,7 +66,9 @@ class TransaksiController extends Controller
          'uang_dibayar' => $r->uang_dibayar,
       ]);
 
-      return response()->json(array('success' => true));
+      $invCode = $transaksi->kode_invoice;
+
+      return response()->json(array('success' => true, 'invCode' => $invCode));
    }
 
    public function showTransactions()
