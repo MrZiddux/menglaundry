@@ -2,7 +2,7 @@
    <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
          <div class="modal-header">
-         <h5 class="modal-title" id="exampleModalLabel">Create Data Penjemputan</h5>
+         <h5 class="modal-title" id="exampleModalLabel">Create Data Barang</h5>
          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
          </button>
@@ -11,20 +11,33 @@
             @csrf
             <div class="modal-body">
                <div class="form-group">
-                  <label for="inputIdTransaksi">Kode Transaksi</label>
-                  <select name="id_transaksi" id="inputIdTransaksi" class="form-control">
-                     <option class="firstOption" selected disabled>Pilih Kode Invoice</option>
-                  </select>
+                  <label>Nama Barang</label>
+                  <input type="text" class="form-control" name="nama_barang">
                </div>
                <div class="form-group">
-                  <label for="inputKurir">Kurir</label>
-                  <select name="id_kurir" id="inputKurir" class="form-control">
-                     <option class="firstOption" selected disabled>Pilih Kurir</option>
-                  </select>
+                  <label>QTY</label>
+                  <input type="number" class="form-control" name="qty" min="0">
                </div>
                <div class="form-group">
-                  <label for="inputStatus">Status</label>
-                  <input type="text" name="status" id="inputStatus" class="form-control" value="tercatat" readonly>
+                  <label>Harga</label>
+                  <input type="text" class="form-control" name="harga">
+               </div>
+               <div class="form-group">
+                  <label>Waktu Beli</label>
+                  <input type="datetime-local" class="form-control" name="waktu_beli">
+               </div>
+               <div class="form-group">
+                  <label>Supplier</label>
+                  <input type="text" class="form-control" name="supplier">
+               </div>
+               <div class="form-group">
+                  <label>Status</label>
+                  <select name="status" class="form-control">
+                     <option selected disabled>Pilih Status</option>
+                     <option value="diajukan_beli">Diajukan Beli</option>
+                     <option value="habis">Habis</option>
+                     <option value="tersedia">Tersedia</option>
+                  </select>
                </div>
             </div>
             <div class="modal-footer bg-whitesmoke br">
@@ -47,23 +60,32 @@
          </div>
          <form id="updateForm">
             @csrf
-            <input type="hidden" id="id" name="id">
+            <input type="hidden" id="editId" name="id">
             <div class="modal-body">
                <div class="form-group">
-                  <label for="inputIdTransaksi">Kode Transaksi</label>
-                  <select name="id_transaksi" id="inputIdTransaksi2" class="form-control">
-                     <option class="firstOption" selected disabled>Pilih Kode Invoice</option>
-                  </select>
+                  <label>Nama Barang</label>
+                  <input type="text" class="form-control" name="nama_barang" id="editNamaBarang">
                </div>
                <div class="form-group">
-                  <label for="inputKurir">Kurir</label>
-                  <select name="id_kurir" id="inputKurir2" class="form-control">
-                     <option class="firstOption" selected disabled>Pilih Kurir</option>
-                  </select>
+                  <label>QTY</label>
+                  <input type="number" class="form-control" name="qty" min="0" id="editQty">
                </div>
                <div class="form-group">
-                  <label for="inputStatus">Status</label>
-                  <input type="text" name="status" id="inputStatus2" class="form-control" readonly>
+                  <label>Harga</label>
+                  <input type="text" class="form-control" name="harga" id="editHarga">
+               </div>
+               <div class="form-group">
+                  <label>Supplier</label>
+                  <input type="text" class="form-control" name="supplier" id="editSupplier">
+               </div>
+               <div class="form-group">
+                  <label>Status</label>
+                  <select name="status" class="form-control" id="editStatus">
+                     <option disabled>Pilih Status</option>
+                     <option value="diajukan_beli">Diajukan Beli</option>
+                     <option value="habis">Habis</option>
+                     <option value="tersedia">Tersedia</option>
+                  </select>
                </div>
             </div>
             <div class="modal-footer bg-whitesmoke br">
@@ -84,13 +106,13 @@
             <span aria-hidden="true">&times;</span>
          </button>
          </div>
-         <form id="formDeletePenjemputan">
+         <form id="deleteForm">
             @csrf
             <div class="modal-body">
-               <input type="hidden" name="id" id="idDelete">
+               <input type="hidden" name="id" id="deleteId">
                <div class="text-center">
                   <i class="fas fa-exclamation-triangle mb-3" style="font-size: 6rem !important"></i>
-                  <h4 class="text-danger mb-0" id="kodeInvoice"></h4>
+                  <h4 class="text-danger mb-0" id="deleteNamaBarang"></h4>
                   <p>Are you sure to delete the data above?</p>
                </div>
             </div>
