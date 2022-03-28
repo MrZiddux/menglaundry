@@ -23,8 +23,7 @@ class FakturController extends Controller
             }]);
             $q->with('member');
             $q->with('user');
-            $q->where('kode_invoice', $inv);
-        }, 'paket'])->get();
+        }, 'paket'])->where('id_transaksi', $transaksi[0]->id)->get();
 
         if ($transaksi->count() > 0 && $detailTransaksi->count() > 0) {
             return view('pages.faktur.index', compact('transaksi', 'detailTransaksi'));
