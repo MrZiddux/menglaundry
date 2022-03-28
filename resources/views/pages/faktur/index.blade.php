@@ -12,7 +12,7 @@
                   <h2>Invoice</h2>
                   <div class="invoice-number">Order {{ $item->kode_invoice }}</div>
                </div>
-               <hr>`
+               <hr>
                <div class="row">
                   <div class="col-md-6">
                   <address>

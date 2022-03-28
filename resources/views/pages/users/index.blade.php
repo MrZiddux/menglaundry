@@ -8,13 +8,7 @@
    </div>
    <div class="section-body">
       <div id="alertHere"></div>
-      <div class="d-flex justify-content-between align-items-center">
-         <button class="btn btn-icon icon-left btn-primary" data-toggle="modal" data-target="#createModal"><i class="fas fa-plus"></i>&nbsp;Add New User</button>
-         <div>
-            {{-- <a href="/members/export" class="btn btn-icon icon-left btn-success"><i class="fas fa-file-excel"></i>&nbsp;Export Data</a> --}}
-            <button class="btn btn-icon icon-left btn-info" data-toggle="modal" data-target="#importModal"><i class="fas fa-file-excel"></i>&nbsp;Import Data</button>
-         </div>
-      </div>
+      <button class="btn btn-icon icon-left btn-primary" data-toggle="modal" data-target="#createModal"><i class="fas fa-plus"></i>&nbsp;Add New User</button>
       <div class="row">
          <div class="col-12">
             <div id="wrapperTable"></div>
@@ -26,7 +20,56 @@
    </x-slot>
    <x-slot name="script">
       <script>
-
+         const grid = new gridjs.Grid({
+            server: {
+               method: 'GET',
+               url: '/users/get',
+               then: data => data.map((item, index) => [
+                  index+1,
+                  item.nama,
+                  item.tlp,
+                  item.username,
+                  item.password,
+                  item.outlet.nama
+               ]),
+            },
+            columns: [
+               {
+                  name: 'No',
+               },
+               {
+                  name: 'Nama',
+               },
+               {
+                  name: 'Telepon',
+               },
+               {
+                  name: 'Username',
+               },
+               {
+                  name: 'Password',
+               },
+               {
+                  name: 'Outlet',
+               },
+            ],
+            className: {
+               table: 'table table-striped table-md',
+               thead: 'bg-white',
+               th: 'text-dark',
+               search: 'float-right',
+            },
+            search: {
+               server: {
+                  url: (prev, keyword) => `${prev}?search=${keyword}`
+               }
+            },
+            fixedHeader: true,
+            sort: true,
+            pagination: true,
+            search: true,
+            resizable: true,
+         }).render(document.getElementById('wrapperTable'));
       </script>
    </x-slot>
 </x-app>

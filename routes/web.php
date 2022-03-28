@@ -12,6 +12,7 @@ use App\Http\Controllers\PaketController;
 use App\Http\Controllers\PenggunaanBarangController;
 use App\Http\Controllers\PenjemputanLaundryController;
 use App\Http\Controllers\TransaksiController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth', 'role:kasir'])->group(function () {
@@ -54,6 +55,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
    Route::get('penggunaan-barang/export', [PenggunaanBarangController::class, 'export']);
 
    Route::view('users', 'pages.users.index');
+   Route::get('users/getData', [UserController::class, 'getData']);
 
    Route::view('transactions', 'pages.transaction.index');
    Route::get('transactions/getData', [TransaksiController::class, 'showTransactions'])->name('transactions.getData');
