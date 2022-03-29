@@ -15,9 +15,6 @@ use App\Http\Controllers\TransaksiController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware(['auth', 'role:kasir'])->group(function () {
-});
-
 Route::middleware(['auth', 'role:admin'])->group(function () {
    Route::view('/', 'pages.home.index');
    Route::get('members', [MemberController::class, 'index']);
@@ -85,6 +82,15 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
    Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 });
+
+Route::middleware(['auth', 'role:kasir'])->group(function () {
+
+});
+
+Route::middleware(['auth', 'role:owner'])->group(function () {
+
+});
+
 
 Route::middleware('guest')->group(function () {
    Route::view('login', 'pages.auth.login')->name('login');

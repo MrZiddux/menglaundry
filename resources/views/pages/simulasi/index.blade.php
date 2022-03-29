@@ -213,6 +213,7 @@
             subtotal.val(total)
          })
 
+         // Binary Search Algorithm || Sequential Search
          const searching = (arr, text) => {
             let dataSearch = []
             for (let i = 0; i < arr.length; i++) {
@@ -233,6 +234,7 @@
             renderTable('dataSearch')
          })
 
+         // Insertion Sort
          $('#sortById').on('click', function(e) {
             e.preventDefault()
             let data = JSON.parse(localStorage.getItem('data'))
