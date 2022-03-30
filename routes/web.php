@@ -36,12 +36,16 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
    Route::post('outlets/store', [OutletController::class, 'store'])->name('outlets.store');
    Route::post('outlets/update', [OutletController::class, 'update'])->name('outlets.update');
    Route::post('outlets/destroy', [OutletController::class, 'destroy'])->name('outlets.destroy');
+   Route::get('outlets/export', [OutletController::class, 'export'])->name('outlets.export');
+   Route::post('outlets/import', [OutletController::class, 'import'])->name('outlets.import');
 
    Route::get('packages', [PaketController::class, 'index']);
    Route::get('packages/getData', [PaketController::class, 'getData']);
    Route::post('packages/store', [PaketController::class, 'store'])->name('packages.store');
    Route::post('packages/update', [PaketController::class, 'update'])->name('packages.update');
    Route::post('packages/destroy', [PaketController::class, 'destroy'])->name('packages.destroy');
+   Route::get('packages/export', [PaketController::class, 'export'])->name('packages.export');
+   Route::post('packages/import', [PaketController::class, 'import'])->name('packages.import');
 
    Route::view('penggunaan-barang', 'pages.penggunaan_barang.index');
    Route::get('penggunaan-barang/getData', [PenggunaanBarangController::class, 'getData']);
@@ -51,8 +55,12 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
    Route::post('penggunaan-barang/destroy', [PenggunaanBarangController::class, 'destroy']);
    Route::get('penggunaan-barang/export', [PenggunaanBarangController::class, 'export']);
 
-   Route::view('users', 'pages.users.index');
+   Route::get('users', [UserController::class, 'index']);
    Route::get('users/getData', [UserController::class, 'getData']);
+   Route::post('users/store', [UserController::class, 'store'])->name('users.store');
+   Route::post('users/update', [UserController::class, 'update'])->name('users.update');
+   Route::post('users/destroy', [UserController::class, 'destroy'])->name('users.destroy');
+   Route::post('users/changePassword', [UserController::class, 'changePassword'])->name('users.changePassword');
 
    Route::view('transactions', 'pages.transaction.index');
    Route::get('transactions/getData', [TransaksiController::class, 'showTransactions'])->name('transactions.getData');

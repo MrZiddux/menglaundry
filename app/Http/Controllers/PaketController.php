@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\PaketExport;
+use App\Imports\PaketImport;
 use App\Models\Paket;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class PaketController extends Controller
 {
@@ -40,5 +43,20 @@ class PaketController extends Controller
    {
       Paket::findOrFail($r->id)->delete();
       return response()->json(array('success' => true));
+   }
+
+   public function export()
+   {
+      $date = date('Y-m-d-');
+      return Excel::download(new PaketExport, $date . 'paket.xlsx');
+   }
+
+   public function import(Request $r)
+   {
+      $r->validate([
+         'importFile' => 'required|mimes:csv,xls,xlsx',
+      ]);
+      Excel::import(new PaketImport, $r->file('importFile'));
+      return back();
    }
 }

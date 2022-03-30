@@ -2,11 +2,11 @@
 
 namespace App\Imports;
 
-use App\Models\Member;
+use App\Models\Paket;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
-class MemberImport implements ToModel, WithHeadingRow
+class PaketImport implements ToModel, WithHeadingRow
 {
    /**
     * @param array $row
@@ -15,11 +15,11 @@ class MemberImport implements ToModel, WithHeadingRow
     */
    public function model(array $row)
    {
-      return new Member([
-         'nama' => $row['nama'],
-         'jenis_kelamin' => $row['jk'],
-         'tlp' => $row['telepon'],
-         'alamat' => $row['alamat']
+      return new Paket([
+         'id_outlet' => auth()->user()->id_outlet,
+         'nama_paket' => $row['nama_paket'],
+         'jenis' => $row['jenis'],
+         'harga' => $row['harga']
       ]);
    }
 

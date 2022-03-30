@@ -2,20 +2,20 @@
 
 namespace App\Exports;
 
-use App\Models\Member;
+use App\Models\Outlet;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithEvents;
 use Maatwebsite\Excel\Events\AfterSheet;
 
-class MemberExport implements FromCollection, WithHeadings, WithEvents
+class OutletExport implements FromCollection, WithHeadings, WithEvents
 {
    /**
     * @return \Illuminate\Support\Collection
     */
    public function collection()
    {
-      return Member::select('id', 'nama', 'jenis_kelamin', 'tlp', 'alamat')->get();
+      return Outlet::select('id', 'nama', 'tlp', 'alamat')->get();
    }
 
    public function headings(): array
@@ -23,7 +23,6 @@ class MemberExport implements FromCollection, WithHeadings, WithEvents
       return [
          'No',
          'Nama',
-         'JK',
          'Telepon',
          'Alamat',
       ];
@@ -38,17 +37,16 @@ class MemberExport implements FromCollection, WithHeadings, WithEvents
             $event->sheet->getColumnDimension('B')->setAutoSize(true);
             $event->sheet->getColumnDimension('C')->setAutoSize(true);
             $event->sheet->getColumnDimension('D')->setAutoSize(true);
-            $event->sheet->getColumnDimension('E')->setAutoSize(true);
 
             $event->sheet->insertNewRowBefore(1, 2);
-            $event->sheet->mergeCells('A1:E1');
-            $event->sheet->setCellValue('A1', 'Data Member');
+            $event->sheet->mergeCells('A1:D1');
+            $event->sheet->setCellValue('A1', 'Data Outlet');
             $event->sheet->getStyle('A1')->getFont()->setSize(14);
             $event->sheet->getStyle('A1')->getFont()->setBold(true);
-            $event->sheet->getStyle('A3:E3')->getFont()->setBold(true);
+            $event->sheet->getStyle('A3:D3')->getFont()->setBold(true);
             $event->sheet->getStyle('A1')->getAlignment()->setHorizontal('center');
 
-            $event->sheet->getStyle('A3:E' . $event->sheet->getHighestRow())->applyFromArray([
+            $event->sheet->getStyle('A3:D' . $event->sheet->getHighestRow())->applyFromArray([
                'borders' => [
                   'allBorders' => [
                      'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,

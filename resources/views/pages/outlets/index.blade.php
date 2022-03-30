@@ -8,7 +8,13 @@
    </div>
    <div class="section-body">
       <div id="alertHere"></div>
-      <button class="btn btn-icon icon-left btn-primary" data-toggle="modal" data-target="#createModal"><i class="fas fa-plus"></i>&nbsp;Add New Outlet</button>
+      <div class="d-flex justify-content-between align-items-center">
+         <button class="btn btn-icon icon-left btn-primary" data-toggle="modal" data-target="#createModal"><i class="fas fa-plus"></i>&nbsp;Add New Outlet</button>
+         <div>
+            <a href="/outlets/export" class="btn btn-icon icon-left btn-success"><i class="fas fa-file-excel"></i>&nbsp;Export Data</a>
+            <button class="btn btn-icon icon-left btn-info" data-toggle="modal" data-target="#importModal"><i class="fas fa-file-excel"></i>&nbsp;Import Data</button>
+         </div>
+      </div>
       <div class="row">
          <div class="col-12">
             <div id="wrapperTable"></div>

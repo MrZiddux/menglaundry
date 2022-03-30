@@ -1,42 +1,56 @@
-<!-- Modal Create Members -->
 <div class="modal fade" id="createModal" tabindex="-1" role="dialog">
    <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
          <div class="modal-header">
-         <h5 class="modal-title" id="exampleModalLabel">Create Data Member</h5>
+         <h5 class="modal-title" id="exampleModalLabel">Create Data User</h5>
          <button type="button" class="close btnResetForm" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
          </button>
          </div>
-         <form autocomplete="off" id="formCreateMember">
+         <form autocomplete="off" id="formCreate">
             @csrf
             <div class="modal-body">
                <div class="form-group">
-                  <label>Name</label>
+                  <label>Nama</label>
                   <input type="text" class="form-control" name="nama">
                </div>
                <div class="form-group">
-                  <label class="d-block">Gender</label>
-                  <div class="custom-control custom-radio custom-control-inline">
-                     <input type="radio" id="male" name="jenis_kelamin" class="custom-control-input" value="L">
-                     <label class="custom-control-label" for="male">Male</label>
-                  </div>
-                  <div class="custom-control custom-radio custom-control-inline">
-                     <input type="radio" id="female" name="jenis_kelamin" class="custom-control-input" value="P">
-                     <label class="custom-control-label" for="female">Female</label>
-                  </div>
-               </div>
-               <div class="form-group">
-                  <label>Number</label>
+                  <label>Telepon</label>
                   <input type="tel" class="form-control" name="tlp">
                </div>
                <div class="form-group">
                   <label>Alamat</label>
                   <textarea class="form-control" name="alamat" placeholder="Input your address ..." style="height: 4rem;"></textarea>
                </div>
+               <div class="form-group">
+                  <label>Outlet</label>
+                  <select class="form-control" name="id_outlet">
+                     <option selected disabled>Pilih Outlet</option>
+                     @foreach($outlets as $item)
+                     <option value="{{ $item->id }}">{{ $item->id }} - {{ $item->nama }}</option>
+                     @endforeach
+                  </select>
+               </div>
+               <div class="form-group">
+                  <label>Username</label>
+                  <input type="text" class="form-control" name="username">
+               </div>
+               <div class="form-group">
+                  <label>Password</label>
+                  <input type="password" class="form-control" name="password">
+               </div>
+               <div class="form-group">
+                  <label>Role</label>
+                  <select class="form-control" name="role">
+                     <option selected disabled>Pilih Role</option>
+                     <option value="admin">Admin</option>
+                     <option value="kasir">Kasir</option>
+                     <option value="owner">Owner</option>
+                  </select>
+               </div>
             </div>
             <div class="modal-footer bg-whitesmoke br">
-               <button type="button" class="btn btn-primary" id="btnCreateMember">Create</button>
+               <button type="submit" class="btn btn-primary" id="btnCreate">Create</button>
                <button type="button" class="btn btn-secondary btnResetForm" data-dismiss="modal">Close</button>
             </div>
          </form>
@@ -44,46 +58,56 @@
    </div>
 </div>
 
-<!-- Modal Edit Members -->
-<div class="modal fade" id="editModal" tabindex="-1" role="dialog">
+<div class="modal fade" id="updateModal" tabindex="-1" role="dialog">
    <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
          <div class="modal-header">
-         <h5 class="modal-title" id="exampleModalLabel">Edit Data Member</h5>
+         <h5 class="modal-title" id="exampleModalLabel">Edit Data User</h5>
          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
          </button>
          </div>
-         <form autocomplete="off" id="formUpdateMember">
+         <form autocomplete="off" id="formUpdate">
             @csrf
             <div class="modal-body">
-               <input type="hidden" name="id" id="id">
+               <input type="hidden" name="id" id="updateId">
                <div class="form-group">
-                  <label for="nama">Name</label>
-                  <input type="text" class="form-control" name="nama" id="nama">
+                  <label>Nama</label>
+                  <input type="text" class="form-control" name="nama" id="updateNama">
                </div>
                <div class="form-group">
-                  <label class="d-block">Gender</label>
-                  <div class="custom-control custom-radio custom-control-inline">
-                     <input type="radio" id="male2" name="jenis_kelamin" class="custom-control-input" value="L">
-                     <label class="custom-control-label" for="male2">Male</label>
-                  </div>
-                  <div class="custom-control custom-radio custom-control-inline">
-                     <input type="radio" id="female2" name="jenis_kelamin" class="custom-control-input" value="P">
-                     <label class="custom-control-label" for="female2">Female</label>
-                  </div>
+                  <label>Telepon</label>
+                  <input type="tel" class="form-control" name="tlp" id="updateTlp">
                </div>
                <div class="form-group">
-                  <label for="tlp">Number</label>
-                  <input type="tel" class="form-control" name="tlp" id="tlp">
+                  <label>Alamat</label>
+                  <textarea class="form-control" name="alamat" placeholder="Input your address ..." style="height: 4rem;" id="inputAlamat"></textarea>
                </div>
                <div class="form-group">
-                  <label for="alamat">Address</label>
-                  <textarea class="form-control" name="alamat" placeholder="Input your address ..." id="alamat" style="height: 4rem;"></textarea>
+                  <label>Outlet</label>
+                  <select class="form-control" name="id_outlet" id="selectOutlet">
+                     <option disabled>Pilih Outlet</option>
+                     @foreach($outlets as $item)
+                     <option value="{{ $item->id }}">{{ $item->id }} - {{ $item->nama }}</option>
+                     @endforeach
+                  </select>
+               </div>
+               <div class="form-group">
+                  <label>Username</label>
+                  <input type="text" class="form-control" name="username" id="inputUsername">
+               </div>
+               <div class="form-group">
+                  <label>Role</label>
+                  <select class="form-control" name="role" id="selectRole">
+                     <option disabled>Pilih Role</option>
+                     <option value="admin">Admin</option>
+                     <option value="kasir">Kasir</option>
+                     <option value="owner">Owner</option>
+                  </select>
                </div>
             </div>
             <div class="modal-footer bg-whitesmoke br">
-               <button type="button" class="btn btn-primary" id="btnUpdateMember">Save changes</button>
+               <button type="submit" class="btn btn-primary" id="btnUpdate">Save changes</button>
                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
          </form>
@@ -91,28 +115,27 @@
    </div>
 </div>
 
-<!-- Modal Hapus Members -->
 <div class="modal fade" id="hapusModal" tabindex="-1" role="dialog">
    <div class="modal-dialog modal-danger modal-dialog-centered modal-" role="document">
       <div class="modal-content">
          <div class="modal-header">
-         <h6 class="modal-title" id="modal-title-notification">Delete Data Member</h6>
+         <h6 class="modal-title" id="modal-title-notification">Delete Data User</h6>
          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
          </button>
          </div>
-         <form id="formDeleteMember">
+         <form id="formDelete">
             @csrf
             <div class="modal-body">
-               <input type="hidden" name="id" id="id2">
+               <input type="hidden" name="id" id="deleteId">
                <div class="text-center">
                   <i class="fas fa-exclamation-triangle mb-3" style="font-size: 6rem !important"></i>
-                  <h4 class="text-danger mb-0" id="namaMember"></h4>
+                  <h4 class="text-danger mb-0" id="deleteNama"></h4>
                   <p>Are you sure to delete the data above?</p>
                </div>
             </div>
             <div class="modal-footer bg-whitesmoke br">
-               <button type="button" class="btn btn-danger" id="btnDeleteMember">Delete</button>
+               <button type="submit" class="btn btn-danger" id="btnDelete">Delete</button>
                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
          </form>
@@ -120,7 +143,37 @@
    </div>
 </div>
 
-<!-- Modal Create Members -->
+<div class="modal fade" id="changePasswordModal" tabindex="-1" role="dialog">
+   <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+         <div class="modal-header">
+         <h5 class="modal-title" id="exampleModalLabel">Ganti Password</h5>
+         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+         </button>
+         </div>
+         <form autocomplete="off" id="formChangePassword">
+            @csrf
+            <div class="modal-body">
+               <input type="hidden" name="id" id="CPid">
+               <div class="form-group">
+                  <label>Password Lama</label>
+                  <input type="password" class="form-control" name="password_lama" id="inputPasswordLama">
+               </div>
+               <div class="form-group">
+                  <label>Password Baru</label>
+                  <input type="password" class="form-control" name="password_baru" id="inputPasswordBaru">
+               </div>
+            </div>
+            <div class="modal-footer bg-whitesmoke br">
+               <button type="submit" class="btn btn-primary" id="btnUpdate">Save changes</button>
+               <button type="reset" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+         </form>
+      </div>
+   </div>
+</div>
+
 <div class="modal fade" id="importModal" tabindex="-1" role="dialog">
    <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
