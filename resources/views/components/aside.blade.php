@@ -39,7 +39,7 @@
             <li class="menu-header">Algoritm</li>
             {{-- <li class="{{ request()->is('algoritma') ? 'active' : '' }}"><a href="/algoritma" class="nav-link"><i class="fas fa-project-diagram"></i><span>Algoritma</span></a></li> --}}
             <li class="{{ request()->is('simulasi') ? 'active' : '' }}"><a href="/simulasi" class="nav-link"><i class="fas fa-project-diagram"></i><span>Simulasi</span></a></li>
-            <li class="{{ request()->is('penggunaan-barang') ? 'active' : '' }}"><a href="/penggunaan-barang" class="nav-link"><i class="fas fa-project-diagram"></i><span>Penggunaan Barang</span></a></li>
+            {{-- <li class="{{ request()->is('penggunaan-barang') ? 'active' : '' }}"><a href="/penggunaan-barang" class="nav-link"><i class="fas fa-project-diagram"></i><span>Penggunaan Barang</span></a></li> --}}
          @elseif (Auth::user()->role == 'kasir')
 
          @endif
