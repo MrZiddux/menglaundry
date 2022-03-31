@@ -4,7 +4,7 @@
    </div>
    <div class="section-body">
       <div class="invoice">
-         <div class="invoice-print">
+         <div class="invoice-print" id="sectionPrint">
             @foreach ($transaksi as $item)                
             <div class="row">
             <div class="col-lg-12">
@@ -138,8 +138,22 @@
          <hr>
          <div class="text-md-right">
             <a href="/transaction/new" class="btn btn-danger btn-icon icon-left"><i class="fas fa-times"></i> Close</a>
-            <button class="btn btn-warning btn-icon icon-left"><i class="fas fa-print"></i> Print</button>
+            <button class="btn btn-warning btn-icon icon-left btnPrint"><i class="fas fa-print"></i> Print</button>
          </div>
       </div>
    </div>
+   <x-slot name="script">
+      <script>
+         $(document).ready(function(){
+            $('.btnPrint').click(function(){
+               let printArea = $('#sectionPrint').html()
+               // document print area 
+               let originalContents = document.body.innerHTML;
+               document.body.innerHTML = printArea;
+               window.print();
+               document.body.innerHTML = originalContents;
+            });
+         });
+      </script>
+   </x-slot>
 </x-app>
